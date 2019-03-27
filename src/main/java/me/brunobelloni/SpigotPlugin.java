@@ -27,21 +27,23 @@ public class SpigotPlugin extends JavaPlugin {
         this.pluginManager.registerEvents(new LoginEvent(this), this);
     }
 
-    /**
-     * Commands enabled with following method must have entries in plugin.yml
-     */
     private void bindCommands() {
         this.getCommand("example").setExecutor(new ExampleCommand(this));
 
         try {
-            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+            Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
             bukkitCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
-            commandMap.register("seen", new Sample("seen"));
+            this.bindSingleCommand(commandMap, "seen");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void bindSingleCommand(CommandMap commandMap, String cmd) {
+        commandMap.register(cmd, new Sample(cmd));
     }
 }
