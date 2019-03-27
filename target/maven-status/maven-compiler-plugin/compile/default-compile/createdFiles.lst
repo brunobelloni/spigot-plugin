@@ -1,2 +1,5 @@
 me/sgray/template/spigotplugin/SpigotPlugin.class
+me/brunobelloni/avl/Node.class
+me/brunobelloni/events/LoginEvent.class
+me/brunobelloni/avl/AVLTree.class
 me/sgray/template/spigotplugin/ExampleCommand.class
