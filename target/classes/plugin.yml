@@ -1,10 +1,10 @@
 name: SpigotPlugin
 version: 0.1-SNAPSHOT
-description: Example of a Spigot plugin using Maven
-author: SGray
-website: http://sgray.me/project/spigotplugin
+description: Spigot plugin using Maven
+author: brunobelloni
+website: https://github.com/brunobelloni/SpigotPlugin
 
-main: me.sgray.template.spigotplugin.SpigotPlugin
+main: me.brunobelloni.SpigotPlugin
 
 commands:
     example:

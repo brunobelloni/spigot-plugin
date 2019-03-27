@@ -1,7 +1,7 @@
 package me.brunobelloni.events;
 
+import me.brunobelloni.SpigotPlugin;
 import me.brunobelloni.avl.AVLTree;
-import me.sgray.template.spigotplugin.SpigotPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

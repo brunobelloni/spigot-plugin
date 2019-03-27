@@ -1,5 +1,7 @@
-me/sgray/template/spigotplugin/SpigotPlugin.class
-me/brunobelloni/avl/Node.class
+me/brunobelloni/commands/ExampleCommand.class
+me/brunobelloni/SpigotPlugin.class
 me/brunobelloni/events/LoginEvent.class
+me/brunobelloni/types/Gamer.class
+me/brunobelloni/avl/Node.class
 me/brunobelloni/avl/AVLTree.class
-me/sgray/template/spigotplugin/ExampleCommand.class
+me/brunobelloni/commands/Sample.class

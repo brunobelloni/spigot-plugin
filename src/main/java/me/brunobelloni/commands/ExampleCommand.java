@@ -1,10 +1,12 @@
-package me.sgray.template.spigotplugin;
+package me.brunobelloni.commands;
 
+import me.brunobelloni.SpigotPlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class ExampleCommand implements CommandExecutor {
+
     SpigotPlugin plugin;
 
     public ExampleCommand(SpigotPlugin plugin) {
