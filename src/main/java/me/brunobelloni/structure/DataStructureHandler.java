@@ -8,12 +8,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class PlayerHandler implements Listener {
+public class DataStructureHandler implements Listener {
 
     private Plugin plugin;
     public static DataStructure dataStructure;
 
-    public PlayerHandler(Plugin plugin) {
+    public DataStructureHandler(Plugin plugin) {
         this.plugin = plugin;
         this.dataStructure = new DataStructure();
     }

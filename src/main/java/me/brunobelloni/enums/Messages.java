@@ -21,7 +21,8 @@ import org.bukkit.ChatColor;
 
 public enum Messages {
 
-    DONT_HAVE_PERMISSION("&cVocê não tem permissão!");
+    DONT_HAVE_PERMISSION("&cVocê não tem permissão!"),
+    CHOOSE_KIT("&7Você escolheu o kit &c");
 
     private final String message;
 

@@ -1,8 +1,11 @@
 package me.brunobelloni.types;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import me.brunobelloni.enums.Abilitys;
+import me.brunobelloni.enums.CustomItem;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,6 +18,14 @@ public class Gamer implements Comparable<Gamer> {
 
     public Gamer(Player player) {
         this.player = player;
+        this.money = 0.0;
+        this.availableKits = new ArrayList<>();
+        this.ability = Abilitys.NONE;
+    }
+
+    public Gamer giveItem(ItemStack item) {
+        player.getInventory().addItem(item);
+        return this;
     }
 
     public Gamer setAbility(Abilitys ability) {
@@ -61,12 +72,29 @@ public class Gamer implements Comparable<Gamer> {
     public Gamer fillInventoryWithSoup() {
         ItemStack[] inventory = player.getInventory().getContents();
 
-        // Percorre inventario
+        ItemStack soup = CustomItem.SOUP.getItem();
+
+        for (ItemStack item : inventory) {
+            if (item == null) {
+                player.getInventory().addItem(soup);
+            }
+        }
+
         return this;
     }
 
     public Gamer clearInventory() {
         player.getInventory().clear();
+        return this;
+    }
+
+    public Gamer playSound(Sound sound) {
+        player.playSound(player.getLocation(), sound, 1, 1);
+        return this;
+    }
+
+    public Gamer sendMessage(String message) {
+        player.sendMessage(message);
         return this;
     }
 

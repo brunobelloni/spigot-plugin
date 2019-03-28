@@ -3,6 +3,7 @@ package me.brunobelloni.kits;
 import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.Messages;
 import me.brunobelloni.types.Gamer;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,10 +20,14 @@ public class Pvp extends AbstractKit {
             return true;
         }
 
-        Gamer g = dataStructure.search(new Gamer((Player) sender));
-        g.setAbility(Abilitys.PVP);
+        Gamer g = dataStructure.search((Player) sender);
 
-        sender.sendMessage("Você escolheu o kit Pvp");
+        g.clearInventory()
+                .setAbility(Abilitys.PVP)
+                .giveItem(diamondSword)
+                .fillInventoryWithSoup()
+                .playSound(Sound.NOTE_BASS_GUITAR)
+                .sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());
 
         return true;
     }

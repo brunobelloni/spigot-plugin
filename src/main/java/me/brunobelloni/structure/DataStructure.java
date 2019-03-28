@@ -3,6 +3,7 @@ package me.brunobelloni.structure;
 import java.util.Iterator;
 import java.util.TreeSet;
 import me.brunobelloni.types.Gamer;
+import org.bukkit.entity.Player;
 
 public class DataStructure {
 
@@ -38,8 +39,9 @@ public class DataStructure {
         }
     }
 
-    public Gamer search(Gamer key) {
-        return searchPrivate(this.gamers, key);
+    public Gamer search(Player key) {
+        Gamer gamer = new Gamer(key);
+        return searchPrivate(this.gamers, gamer);
     }
 
     private Gamer searchPrivate(TreeSet treeset, Gamer key) {

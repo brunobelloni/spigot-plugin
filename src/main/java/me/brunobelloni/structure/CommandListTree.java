@@ -22,9 +22,7 @@ public class CommandListTree extends BukkitCommand {
             return true;
         }
 
-        DataStructure dataStructure = PlayerHandler.dataStructure;
-
-//        Gamer g = new Gamer((Player) sender);
+        DataStructure dataStructure = DataStructureHandler.dataStructure;
 
         dataStructure.listAbilitys();
 

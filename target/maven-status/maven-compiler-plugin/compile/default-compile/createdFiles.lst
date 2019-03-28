@@ -1,9 +1,10 @@
 me/brunobelloni/kits/Pvp.class
 me/brunobelloni/events/DeathEvent.class
+me/brunobelloni/structure/DataStructureHandler.class
+me/brunobelloni/enums/CustomItem.class
 me/brunobelloni/structure/CommandListTree.class
 me/brunobelloni/kits/AbstractKit.class
 me/brunobelloni/Plugin.class
-me/brunobelloni/structure/PlayerHandler.class
 me/brunobelloni/enums/Messages.class
 me/brunobelloni/types/Gamer.class
 me/brunobelloni/yaml/YamlHandler.class
