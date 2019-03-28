@@ -1,13 +1,13 @@
 package me.brunobelloni.enums;
 
-public enum Skills {
+public enum Abilitys {
     
     PVP("Pvp");
     
     private String name;
     
     
-    private Skills(String name) {
+    private Abilitys(String name) {
         this.name = name;
     }
 

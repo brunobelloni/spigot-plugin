@@ -2,6 +2,7 @@ package me.brunobelloni;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import me.brunobelloni.events.DeathEvent;
 import me.brunobelloni.kits.Pvp;
 import me.brunobelloni.structure.CommandListTree;
 import me.brunobelloni.structure.PlayerHandler;
@@ -42,6 +43,7 @@ public class Plugin extends JavaPlugin {
 
     private void bindEvents() {
         this.pluginManager.registerEvents(new PlayerHandler(this), this);
+        this.pluginManager.registerEvents(new DeathEvent(this), this);
     }
 
     private void bindCommands() throws Exception {

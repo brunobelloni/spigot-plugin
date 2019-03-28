@@ -30,6 +30,14 @@ public class DataStructure {
         }
     }
 
+    public void listAbilitys() {
+        Iterator<Gamer> iterator = this.gamers.iterator();
+        while (iterator.hasNext()) {
+            Gamer g = iterator.next();
+            System.out.print(g.getPlayer().getName() + " tem o kit " + g.getAbility());
+        }
+    }
+
     public Gamer search(Gamer key) {
         return searchPrivate(this.gamers, key);
     }

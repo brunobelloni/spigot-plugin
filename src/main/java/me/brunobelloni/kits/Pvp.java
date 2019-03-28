@@ -1,7 +1,10 @@
 package me.brunobelloni.kits;
 
+import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.Messages;
+import me.brunobelloni.types.Gamer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Pvp extends AbstractKit {
 
@@ -16,9 +19,11 @@ public class Pvp extends AbstractKit {
             return true;
         }
 
-        
+        Gamer g = dataStructure.search(new Gamer((Player) sender));
+        g.setAbility(Abilitys.PVP);
 
         sender.sendMessage("Você escolheu o kit Pvp");
+
         return true;
     }
 }
