@@ -1,10 +1,10 @@
+me/brunobelloni/structure/PlayerHandler.class
 me/brunobelloni/kits/Pvp.class
-me/brunobelloni/events/LoginEvent.class
 me/brunobelloni/enums/Messages.class
 me/brunobelloni/types/Gamer.class
-me/brunobelloni/avl/AVLTree$Node.class
-me/brunobelloni/avl/AVLTree.class
-me/brunobelloni/commands/Sample.class
+me/brunobelloni/yaml/YamlHandler.class
+me/brunobelloni/structure/DataStructure.class
+me/brunobelloni/structure/ListTree.class
 me/brunobelloni/kits/AbstractKit.class
 me/brunobelloni/Plugin.class
 me/brunobelloni/enums/Skills.class

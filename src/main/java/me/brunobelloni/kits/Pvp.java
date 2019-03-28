@@ -16,7 +16,8 @@ public class Pvp extends AbstractKit {
             return true;
         }
 
-      
+        
+
         sender.sendMessage("Você escolheu o kit Pvp");
         return true;
     }

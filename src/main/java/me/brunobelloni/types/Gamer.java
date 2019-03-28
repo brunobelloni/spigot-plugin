@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Gamer {
+public class Gamer implements Comparable<Gamer> {
 
     private final Player player;
     private Double money;
@@ -50,4 +50,13 @@ public class Gamer {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return player.getName();
+    }
+
+    @Override
+    public int compareTo(Gamer gamer) {
+        return this.player.getUniqueId().compareTo(gamer.getUUID());
+    }
 }
