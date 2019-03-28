@@ -3,13 +3,4 @@ version: ${version}
 description: ${description}
 author: ${author}
 website: ${url}
-
 main: ${mainClass}
-
-commands:
-    example:
-        description: An example command
-        permission: spigotplugin.example
-        usage: /<command>
-
-permissions: {}

@@ -1,7 +1,9 @@
 /home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/types/Gamer.java
+/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/enums/Messages.java
+/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/kits/AbstractKit.java
 /home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/avl/AVLTree.java
-/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/SpigotPlugin.java
-/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/avl/Node.java
+/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/enums/Skills.java
+/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/Plugin.java
 /home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/events/LoginEvent.java
 /home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/commands/Sample.java
-/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/commands/ExampleCommand.java
+/home/bruno/NetBeansProjects/SpigotPlugin-master/src/main/java/me/brunobelloni/kits/Pvp.java

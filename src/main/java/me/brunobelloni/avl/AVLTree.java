@@ -1,102 +1,234 @@
 package me.brunobelloni.avl;
 
 import java.util.UUID;
+import me.brunobelloni.types.Gamer;
 
 public class AVLTree {
 
     public Node root;
 
-    int height(Node N) {
-        if (N == null) {
-            return 0;
+    private static class Node {
+
+        private Gamer gamer;
+        private UUID key;
+        private int balance;
+        private int height;
+        private Node left;
+        private Node right;
+        private Node parent;
+
+        Node(Gamer gamer, Node parent) {
+            this.key = gamer.getUUID();
+            this.parent = parent;
+        }
+    }
+
+    public boolean insert(Gamer gamer) {
+        if (root == null) {
+            root = new Node(gamer, null);
+            return true;
+        }
+        UUID key = gamer.getUUID();
+
+        Node n = root;
+        while (true) {
+            if (n.key.compareTo(key) == 0) {
+                return false;
+            }
+
+            Node parent = n;
+
+            boolean goLeft = n.key.compareTo(key) > 0;
+            n = goLeft ? n.left : n.right;
+
+            if (n == null) {
+                if (goLeft) {
+                    parent.left = new Node(gamer, parent);
+                } else {
+                    parent.right = new Node(gamer, parent);
+                }
+                rebalance(parent);
+                break;
+            }
+        }
+        return true;
+    }
+
+    private void delete(Node node) {
+        if (node.left == null && node.right == null) {
+            if (node.parent == null) {
+                root = null;
+            } else {
+                Node parent = node.parent;
+                if (parent.left == node) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+                rebalance(parent);
+            }
+            return;
         }
 
-        return N.height;
-    }
-
-    int max(int a, int b) {
-        return (a > b) ? a : b;
-    }
-
-    Node rightRotate(Node y) {
-        Node x = y.left;
-        Node T2 = x.right;
-
-        x.right = y;
-        y.left = T2;
-
-        y.height = max(height(y.left), height(y.right)) + 1;
-        x.height = max(height(x.left), height(x.right)) + 1;
-
-        return x;
-    }
-
-    Node leftRotate(Node x) {
-        Node y = x.right;
-        Node T2 = y.left;
-
-        y.left = x;
-        x.right = T2;
-
-        x.height = max(height(x.left), height(x.right)) + 1;
-        y.height = max(height(y.left), height(y.right)) + 1;
-
-        return y;
-    }
-
-    int getBalance(Node N) {
-        if (N == null) {
-            return 0;
-        }
-
-        return height(N.left) - height(N.right);
-    }
-
-    public Node insert(Node node, UUID key) {
-
-        if (node == null) {
-            return (new Node(key));
-        }
-
-        if (key.compareTo(node.key) < 0) {
-            node.left = insert(node.left, key);
-        } else if (key.compareTo(node.key) > 0) {
-            node.right = insert(node.right, key);
+        if (node.left != null) {
+            Node child = node.left;
+            while (child.right != null) {
+                child = child.right;
+            }
+            node.key = child.key;
+            delete(child);
         } else {
-            return node;
+            Node child = node.right;
+            while (child.left != null) {
+                child = child.left;
+            }
+            node.key = child.key;
+            delete(child);
         }
-
-        node.height = 1 + max(height(node.left),
-                height(node.right));
-
-        int balance = getBalance(node);
-
-        if (balance > 1 && key.compareTo(node.left.key) < 0) {
-            return rightRotate(node);
-        }
-
-        if (balance < -1 && key.compareTo(node.right.key) > 0) {
-            return leftRotate(node);
-        }
-
-        if (balance > 1 && key.compareTo(node.left.key) > 0) {
-            node.left = leftRotate(node.left);
-            return rightRotate(node);
-        }
-
-        if (balance < -1 && key.compareTo(node.right.key) < 0) {
-            node.right = rightRotate(node.right);
-            return leftRotate(node);
-        }
-
-        return node;
     }
 
-    public void preOrder(Node node) {
+    public void delete(UUID delKey) {
+        if (root == null) {
+            return;
+        }
+
+        Node child = root;
+        while (child != null) {
+            Node node = child;
+            child = delKey.compareTo(node.key) >= 0 ? node.right : node.left;
+            if (delKey == node.key) {
+                delete(node);
+                return;
+            }
+        }
+    }
+
+    private void rebalance(Node n) {
+        setBalance(n);
+
+        if (n.balance == -2) {
+            if (height(n.left.left) >= height(n.left.right)) {
+                n = rotateRight(n);
+            } else {
+                n = rotateLeftThenRight(n);
+            }
+
+        } else if (n.balance == 2) {
+            if (height(n.right.right) >= height(n.right.left)) {
+                n = rotateLeft(n);
+            } else {
+                n = rotateRightThenLeft(n);
+            }
+        }
+
+        if (n.parent != null) {
+            rebalance(n.parent);
+        } else {
+            root = n;
+        }
+    }
+
+    private Node rotateLeft(Node a) {
+
+        Node b = a.right;
+        b.parent = a.parent;
+
+        a.right = b.left;
+
+        if (a.right != null) {
+            a.right.parent = a;
+        }
+
+        b.left = a;
+        a.parent = b;
+
+        if (b.parent != null) {
+            if (b.parent.right == a) {
+                b.parent.right = b;
+            } else {
+                b.parent.left = b;
+            }
+        }
+
+        setBalance(a, b);
+
+        return b;
+    }
+
+    private Node rotateRight(Node a) {
+
+        Node b = a.left;
+        b.parent = a.parent;
+
+        a.left = b.right;
+
+        if (a.left != null) {
+            a.left.parent = a;
+        }
+
+        b.right = a;
+        a.parent = b;
+
+        if (b.parent != null) {
+            if (b.parent.right == a) {
+                b.parent.right = b;
+            } else {
+                b.parent.left = b;
+            }
+        }
+
+        setBalance(a, b);
+
+        return b;
+    }
+
+    private Node rotateLeftThenRight(Node n) {
+        n.left = rotateLeft(n.left);
+        return rotateRight(n);
+    }
+
+    private Node rotateRightThenLeft(Node n) {
+        n.right = rotateRight(n.right);
+        return rotateLeft(n);
+    }
+
+    private int height(Node n) {
+        if (n == null) {
+            return -1;
+        }
+        return n.height;
+    }
+
+    private void setBalance(Node... nodes) {
+        for (Node n : nodes) {
+            reheight(n);
+            n.balance = height(n.right) - height(n.left);
+        }
+    }
+
+    public void printBalance() {
+        printBalance(root);
+    }
+
+    private void printBalance(Node n) {
+        if (n != null) {
+            printBalance(n.left);
+            System.out.printf("%s ", n.balance);
+            printBalance(n.right);
+        }
+    }
+
+    private void reheight(Node node) {
         if (node != null) {
-            System.out.print(node.key + " ");
-            preOrder(node.left);
-            preOrder(node.right);
+            node.height = 1 + Math.max(height(node.left), height(node.right));
         }
     }
+    
+    public void preOrder(Node node) { 
+        if (node != null) { 
+            System.out.print(node.key + " "); 
+            preOrder(node.left); 
+            preOrder(node.right); 
+        } 
+    } 
 }

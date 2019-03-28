@@ -3,13 +3,4 @@ version: 0.1-SNAPSHOT
 description: Spigot plugin using Maven
 author: brunobelloni
 website: https://github.com/brunobelloni/SpigotPlugin
-
-main: me.brunobelloni.SpigotPlugin
-
-commands:
-    example:
-        description: An example command
-        permission: spigotplugin.example
-        usage: /<command>
-
-permissions: {}
+main: me.brunobelloni.Plugin

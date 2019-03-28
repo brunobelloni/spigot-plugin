@@ -1,7 +1,10 @@
-me/brunobelloni/commands/ExampleCommand.class
-me/brunobelloni/SpigotPlugin.class
+me/brunobelloni/kits/Pvp.class
 me/brunobelloni/events/LoginEvent.class
+me/brunobelloni/enums/Messages.class
 me/brunobelloni/types/Gamer.class
-me/brunobelloni/avl/Node.class
+me/brunobelloni/avl/AVLTree$Node.class
 me/brunobelloni/avl/AVLTree.class
 me/brunobelloni/commands/Sample.class
+me/brunobelloni/kits/AbstractKit.class
+me/brunobelloni/Plugin.class
+me/brunobelloni/enums/Skills.class
