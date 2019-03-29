@@ -5,23 +5,25 @@ import me.brunobelloni.structure.DataStructure;
 import static me.brunobelloni.structure.DataStructureHandler.dataStructure;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
-public class DeathEvent implements Listener {
+public class JoinEvent implements Listener {
 
     private Plugin plugin;
     public DataStructure tree;
 
-    public DeathEvent(Plugin plugin) {
+    public JoinEvent(Plugin plugin) {
         this.plugin = plugin;
         this.tree = dataStructure;
     }
 
-    public void onDeath(PlayerDeathEvent playerDeathEvent) {
-        Player p = playerDeathEvent.getEntity();
+    @EventHandler
+    public void onJoin(PlayerJoinEvent playerLoginEvent) {
+        Player p = playerLoginEvent.getPlayer();
         Gamer g = dataStructure.search(p);
-        g.removeAbility();
+        g.clearInventory();
+        g.giveMenuItens();
     }
-
 }

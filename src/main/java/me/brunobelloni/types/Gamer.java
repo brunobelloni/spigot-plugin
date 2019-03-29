@@ -3,6 +3,8 @@ package me.brunobelloni.types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import static me.brunobelloni.chests.CommonChestMenu.getMenu;
+import me.brunobelloni.chests.IconMenu;
 import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.CustomItem;
 import org.bukkit.Sound;
@@ -15,12 +17,14 @@ public class Gamer implements Comparable<Gamer> {
     private Double money;
     private List<String> availableKits;
     Abilitys ability;
+    IconMenu menu;
 
     public Gamer(Player player) {
         this.player = player;
         this.money = 0.0;
         this.availableKits = new ArrayList<>();
         this.ability = Abilitys.NONE;
+        this.menu = getMenu();
     }
 
     public Gamer giveItem(ItemStack item) {
@@ -95,6 +99,16 @@ public class Gamer implements Comparable<Gamer> {
 
     public Gamer sendMessage(String message) {
         player.sendMessage(message);
+        return this;
+    }
+
+    public Gamer giveMenuItens() {
+        this.player.sendMessage("Implementar os itens iniciais!");
+        return this;
+    }
+
+    public Gamer openInventoryMenu() {
+        menu.open(this.player);
         return this;
     }
 
