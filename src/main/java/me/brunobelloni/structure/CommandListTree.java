@@ -2,6 +2,7 @@ package me.brunobelloni.structure;
 
 import java.util.ArrayList;
 import me.brunobelloni.enums.Messages;
+import static me.brunobelloni.kits.AbstractKit.getChildren;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -31,6 +32,8 @@ public class CommandListTree extends BukkitCommand {
         Gamer g = dataStructure.search((Player) sender);
 
         g.openInventoryMenu();
+        
+        System.out.println(getChildren());
 
         return true;
     }

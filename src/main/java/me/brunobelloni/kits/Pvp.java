@@ -20,7 +20,7 @@ public class Pvp extends AbstractKit {
             return true;
         }
 
-        Gamer g = dataStructure.search((Player) sender);
+        Gamer g = tree.search((Player) sender);
 
         g.clearInventory()
                 .setAbility(Abilitys.PVP)

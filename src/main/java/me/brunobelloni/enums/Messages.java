@@ -23,7 +23,8 @@ public enum Messages {
 
     DONT_HAVE_PERMISSION("&cVocê não tem permissão!"),
     CHOOSE_KIT("&7Você escolheu o kit &c"),
-    KIT_CHEST_NAME("&cSelecione seu Kit");
+    KIT_CHEST_NAME("&cSelecione seu Kit"),
+    COOLDOWN_WARNING("&cEspere o tempo de recarga!");
 
     private final String message;
 

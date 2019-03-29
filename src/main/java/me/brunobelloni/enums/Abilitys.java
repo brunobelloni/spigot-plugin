@@ -3,7 +3,8 @@ package me.brunobelloni.enums;
 public enum Abilitys {
 
     NONE("Nenhum"),
-    PVP("Pvp");
+    PVP("Pvp"),
+    THOR("Thor");
 
     private String name;
 

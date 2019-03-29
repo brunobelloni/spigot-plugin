@@ -4,6 +4,7 @@ me/brunobelloni/kits/Pvp.class
 me/brunobelloni/events/DeathEvent.class
 me/brunobelloni/structure/DataStructureHandler.class
 me/brunobelloni/enums/CustomItem.class
+me/brunobelloni/enums/Cooldown.class
 me/brunobelloni/chests/IconMenu$onClick.class
 me/brunobelloni/structure/CommandListTree.class
 me/brunobelloni/kits/AbstractKit.class
@@ -15,4 +16,6 @@ me/brunobelloni/yaml/YamlHandler.class
 me/brunobelloni/structure/DataStructure.class
 me/brunobelloni/events/JoinEvent.class
 me/brunobelloni/enums/Abilitys.class
+me/brunobelloni/kits/Thor.class
+me/brunobelloni/kits/Thor$1.class
 me/brunobelloni/chests/CommonChestMenu.class

@@ -16,8 +16,13 @@ public class Gamer implements Comparable<Gamer> {
     private final Player player;
     private Double money;
     private List<String> availableKits;
+    boolean isOnCooldown;
     Abilitys ability;
     IconMenu menu;
+
+    public Gamer() {
+        this.player = null;
+    }
 
     public Gamer(Player player) {
         this.player = player;
@@ -25,6 +30,7 @@ public class Gamer implements Comparable<Gamer> {
         this.availableKits = new ArrayList<>();
         this.ability = Abilitys.NONE;
         this.menu = getMenu();
+        this.isOnCooldown = false;
     }
 
     public Gamer giveItem(ItemStack item) {
@@ -109,6 +115,20 @@ public class Gamer implements Comparable<Gamer> {
 
     public Gamer openInventoryMenu() {
         menu.open(this.player);
+        return this;
+    }
+
+    public boolean isOnCooldown() {
+        return this.isOnCooldown;
+    }
+
+    public Gamer putCooldown() {
+        this.isOnCooldown = true;
+        return this;
+    }
+
+    public Gamer removeCooldown() {
+        this.isOnCooldown = false;
         return this;
     }
 

@@ -6,6 +6,7 @@ import static me.brunobelloni.chests.CommonChestMenu.setCommonChestMenu;
 import me.brunobelloni.events.DeathEvent;
 import me.brunobelloni.events.JoinEvent;
 import me.brunobelloni.kits.Pvp;
+import me.brunobelloni.kits.Thor;
 import me.brunobelloni.structure.CommandListTree;
 import me.brunobelloni.structure.DataStructureHandler;
 import org.bukkit.Bukkit;
@@ -65,5 +66,7 @@ public class Plugin extends JavaPlugin {
         CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
         commandMap.register("pvp", new Pvp("pvp"));
+        commandMap.register("thor", new Pvp("thor"));
+        this.pluginManager.registerEvents(new Thor(this, "thor"), this);
     }
 }

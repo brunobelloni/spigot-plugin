@@ -41,10 +41,10 @@ public class DataStructure {
 
     public Gamer search(Player key) {
         Gamer gamer = new Gamer(key);
-        return searchPrivate(this.gamers, gamer);
+        return search(this.gamers, gamer);
     }
 
-    private Gamer searchPrivate(TreeSet treeset, Gamer key) {
+    private Gamer search(TreeSet treeset, Gamer key) {
         Gamer ceil = (Gamer) treeset.ceiling(key);
         Gamer floor = (Gamer) treeset.floor(key);
         return ceil == floor ? ceil : null;
