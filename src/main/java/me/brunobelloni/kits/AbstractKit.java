@@ -1,22 +1,20 @@
 package me.brunobelloni.kits;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import me.brunobelloni.Plugin;
+import java.util.HashMap;
+import java.util.UUID;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
-import me.brunobelloni.structure.DataStructure;
-import static me.brunobelloni.structure.DataStructureHandler.dataStructure;
+import static me.brunobelloni.structure.HashHandler.playerDataHandler;
+import me.brunobelloni.types.Gamer;
+import org.bukkit.Bukkit;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class AbstractKit extends BukkitCommand implements Listener {
 
-    protected Plugin plugin;
-    protected DataStructure tree;
+    protected HashMap<UUID, Gamer> playerData;
     protected ItemStack diamondSword;
-    private static Set children = new HashSet();
 
     public AbstractKit(String name) {
         super(name);
@@ -24,15 +22,9 @@ public abstract class AbstractKit extends BukkitCommand implements Listener {
         this.usageMessage = "/" + name;
         this.setPermission("kit." + name);
         this.setAliases(new ArrayList<String>());
-        this.tree = dataStructure;
+        this.playerData = playerDataHandler;
+
         this.diamondSword = DIAMOND_SWORD.getItem();
-
-        synchronized (this) {
-            children.add(this);
-        }
-    }
-
-    public static Set getChildren() {
-        return children;
+        Bukkit.getPluginManager().registerEvents(this, Bukkit.getPluginManager().getPlugins()[0]);
     }
 }

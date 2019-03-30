@@ -1,27 +1,33 @@
 package me.brunobelloni.events;
 
+import java.util.HashMap;
+import java.util.UUID;
 import me.brunobelloni.Plugin;
-import me.brunobelloni.structure.DataStructure;
-import static me.brunobelloni.structure.DataStructureHandler.dataStructure;
+import static me.brunobelloni.structure.HashHandler.playerDataHandler;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathEvent implements Listener {
 
     private Plugin plugin;
-    public DataStructure tree;
+    public HashMap<UUID, Gamer> playerData;
 
     public DeathEvent(Plugin plugin) {
         this.plugin = plugin;
-        this.tree = dataStructure;
+        this.playerData = playerDataHandler;
     }
 
-    public void onDeath(PlayerDeathEvent playerDeathEvent) {
-        Player p = playerDeathEvent.getEntity();
-        Gamer g = dataStructure.search(p);
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e) {
+        e.setDeathMessage(null);
+        
+        Player p = e.getEntity();
+        Gamer g = playerData.get(p.getUniqueId());
         g.removeAbility();
+        g.sendMessage("Você morreu!");
     }
 
 }

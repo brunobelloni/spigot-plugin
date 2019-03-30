@@ -1,8 +1,10 @@
 package me.brunobelloni.structure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 import me.brunobelloni.enums.Messages;
-import static me.brunobelloni.kits.AbstractKit.getChildren;
+import static me.brunobelloni.structure.HashHandler.playerDataHandler;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -25,15 +27,15 @@ public class CommandListTree extends BukkitCommand {
             return true;
         }
 
-        DataStructure dataStructure = DataStructureHandler.dataStructure;
+        HashMap<UUID, Gamer> playerData = playerDataHandler;
 
-        dataStructure.listAbilitys();
-
-        Gamer g = dataStructure.search((Player) sender);
-
-        g.openInventoryMenu();
+        System.out.println(playerData);
         
-        System.out.println(getChildren());
+        System.out.println(playerData.get(((Player) sender).getUniqueId()).getAbility());
+        
+        
+//        g.openInventoryMenu();
+//        System.out.println(getChildren());
 
         return true;
     }

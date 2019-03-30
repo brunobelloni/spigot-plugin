@@ -8,7 +8,7 @@ import me.brunobelloni.events.JoinEvent;
 import me.brunobelloni.kits.Pvp;
 import me.brunobelloni.kits.Thor;
 import me.brunobelloni.structure.CommandListTree;
-import me.brunobelloni.structure.DataStructureHandler;
+import me.brunobelloni.structure.HashHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -20,18 +20,20 @@ public class Plugin extends JavaPlugin {
 
     private PluginManager pluginManager = this.getServer().getPluginManager();
 
-    private File playerFile = new File(this.getDataFolder(), "playerData.yml");
+    private File playerFile = new File(this.getDataFolder(), "stats.yml");
     private FileConfiguration playerConfig = loadConfiguration(playerFile);
+    
 
     @Override
     public void onDisable() {
+        
     }
 
     @Override
     public void onEnable() {
         if (!playerFile.exists()) {
             saveResource(playerFile.getName(), false);
-            System.out.println("Criado!");
+            getServer().getConsoleSender().sendMessage("§astats.yml criado com sucesso!");
         }
 
         try {
@@ -45,7 +47,7 @@ public class Plugin extends JavaPlugin {
     }
 
     private void bindEvents() {
-        this.pluginManager.registerEvents(new DataStructureHandler(this), this);
+        this.pluginManager.registerEvents(new HashHandler(this), this);
 
         this.pluginManager.registerEvents(new DeathEvent(this), this);
         this.pluginManager.registerEvents(new JoinEvent(this), this);
@@ -66,7 +68,7 @@ public class Plugin extends JavaPlugin {
         CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
         commandMap.register("pvp", new Pvp("pvp"));
-        commandMap.register("thor", new Pvp("thor"));
-        this.pluginManager.registerEvents(new Thor(this, "thor"), this);
+        commandMap.register("thor", new Thor("thor", this));
+        this.pluginManager.registerEvents(new Thor("thor", this), this);
     }
 }

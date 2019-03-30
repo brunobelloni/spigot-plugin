@@ -2,36 +2,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.brunobelloni</groupId>
     <artifactId>SpigotPlugin</artifactId>
-    <!-- Version is used in plugin.yml -->
-    <version>0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <!-- Plugin Information -->
-    <!-- Name, Description, and URL are used in plugin.yml -->
     <name>SpigotPlugin</name>
     <description>Spigot plugin using Maven</description>
     <url>https://github.com/brunobelloni/SpigotPlugin</url>
-
-    <developers>
-        <developer>
-                <name>Bruno Belloni</name>
-        </developer>
-    </developers>
+    <version>1.8.8-R0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
-        <!--  Author and MainClass are used in plugin.yml -->
         <author>brunobelloni</author>
         <mainClass>me.brunobelloni.Plugin</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
     <repositories>
         <repository>
@@ -40,13 +21,20 @@
         </repository>
     </repositories>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+   
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <defaultGoal>clean install</defaultGoal>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <!-- Keeping filtering at true here reduces plugin.yml redundancy! -->
                 <filtering>true</filtering>
                 <includes>
                     <include>plugin.yml</include>
@@ -54,7 +42,6 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <!-- Keep filtering at false for other resources to prevent bad magic -->
                 <filtering>false</filtering>
                 <excludes>
                     <exclude>**/*.java</exclude>

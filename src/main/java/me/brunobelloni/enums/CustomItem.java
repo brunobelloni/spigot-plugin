@@ -11,7 +11,7 @@ public enum CustomItem {
 
     SOUP(Material.MUSHROOM_SOUP, "&cSoup", new String[]{"", "&7Beba para curar 3.5 corações de vida"}),
     DIAMOND_SWORD(Material.DIAMOND_SWORD, "&cDiamond Sword", new String[]{"", ""}),
-    THOR_ITEM(Material.WOOD_SWORD, "&cThor", new String[]{"", ""});
+    THOR_ITEM(Material.WOOD_AXE, "&cThor", new String[]{"", ""});
 
     private ItemStack item;
 

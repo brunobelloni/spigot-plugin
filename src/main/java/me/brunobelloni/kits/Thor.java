@@ -3,6 +3,7 @@ package me.brunobelloni.kits;
 import java.util.HashSet;
 import me.brunobelloni.Plugin;
 import me.brunobelloni.enums.Abilitys;
+import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
 import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
 import me.brunobelloni.enums.Messages;
 import me.brunobelloni.types.Gamer;
@@ -23,8 +24,9 @@ public class Thor extends AbstractKit {
     private Plugin plugin;
     private ItemStack thorItem;
 
-    public Thor(Plugin plugin, String name) {
+    public Thor(String name, Plugin plugin) {
         super(name);
+        System.out.println(name);
         this.plugin = plugin;
         this.thorItem = THOR_ITEM.getItem();
     }
@@ -36,7 +38,8 @@ public class Thor extends AbstractKit {
             return true;
         }
 
-        Gamer g = tree.search((Player) sender);
+        Player p = (Player) sender;
+        Gamer g = playerData.get(p.getUniqueId());
 
         g.clearInventory()
                 .setAbility(Abilitys.THOR)
@@ -53,28 +56,32 @@ public class Thor extends AbstractKit {
     public void onPlayerThor(PlayerInteractEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();
-            final Gamer g = tree.search(p);
+            final Gamer g = playerData.get(p.getUniqueId());
 
             if (g.getAbility() == Abilitys.THOR) {
-                if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
-                        && (p.getItemInHand() == THOR_ITEM.getItem())) {
+                if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                    if (p.getItemInHand().equals(THOR_ITEM.getItem())) {
+                        if (g.isOnCooldown()) {
+                            long cooldownTime = -((System.currentTimeMillis()
+                                    - (1000 * THOR_COOLDOWN.getCooldown())) / 1000L);
 
-                    if (g.isOnCooldown()) {
-                        g.sendMessage(Messages.COOLDOWN_WARNING + "");
-                    } else {
-                        HashSet<Material> transparent = new HashSet<>();
-                        transparent.add(Material.AIR);
-                        Block block = e.getPlayer().getTargetBlock(transparent, 120);
-                        e.getPlayer().getWorld().strikeLightning(block.getLocation());
+                            System.out.println(cooldownTime + "");
+                        } else {
+                            HashSet<Material> transparent = new HashSet<>();
+                            transparent.add(Material.AIR);
+                            Block block = e.getPlayer().getTargetBlock(transparent, 120);
+                            e.getPlayer().getWorld().strikeLightning(block.getLocation());
 
-                        g.putCooldown();
+                            g.putCooldown(System.currentTimeMillis());
 
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                            public void run() {
-                                g.removeCooldown();
-                            }
-                        }, 20 * 5);
+                            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                                public void run() {
+                                    g.removeCooldown();
+                                }
+                            }, THOR_COOLDOWN.getCooldown());
+                        }
                     }
+
                 }
             }
         }

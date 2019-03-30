@@ -1,5 +1,7 @@
 package me.brunobelloni.structure;
 
+import java.util.HashMap;
+import java.util.UUID;
 import me.brunobelloni.Plugin;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.entity.Player;
@@ -8,27 +10,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class DataStructureHandler implements Listener {
+public class HashHandler implements Listener {
 
     private Plugin plugin;
-    public static DataStructure dataStructure;
+    public static HashMap<UUID, Gamer> playerDataHandler;
 
-    public DataStructureHandler(Plugin plugin) {
+    public HashHandler(Plugin plugin) {
         this.plugin = plugin;
-        this.dataStructure = new DataStructure();
+        playerDataHandler = new HashMap<>();
     }
 
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent playerLoginEvent) {
         Player p = playerLoginEvent.getPlayer();
         Gamer g = new Gamer(p);
-        dataStructure.add(g);
+        playerDataHandler.put(g.getUUID(), g);
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent playerQuitEvent) {
         Player p = playerQuitEvent.getPlayer();
-        Gamer g = new Gamer(p);
-        dataStructure.remove(g);
+        playerDataHandler.remove(p.getUniqueId());
     }
 }

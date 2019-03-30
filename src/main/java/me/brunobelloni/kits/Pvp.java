@@ -11,6 +11,7 @@ public class Pvp extends AbstractKit {
 
     public Pvp(String name) {
         super(name);
+        System.out.println(name);
     }
 
     @Override
@@ -19,9 +20,10 @@ public class Pvp extends AbstractKit {
             sender.sendMessage(Messages.DONT_HAVE_PERMISSION + "");
             return true;
         }
-
-        Gamer g = tree.search((Player) sender);
-
+        
+        Player p = (Player) sender;
+        Gamer g = playerData.get(p.getUniqueId());
+        
         g.clearInventory()
                 .setAbility(Abilitys.PVP)
                 .giveItem(diamondSword)
