@@ -1,6 +1,0 @@
-name: SpigotPlugin
-version: 1.8.8-R0.1-SNAPSHOT
-description: Spigot plugin using Maven
-author: brunobelloni
-website: https://github.com/brunobelloni/SpigotPlugin
-main: me.brunobelloni.Plugin
