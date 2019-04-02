@@ -11,7 +11,7 @@ import org.bukkit.ChatColor;
  * &6 - Gold            &7 - Gray
  * &8 - Dark Grey       &9 - Blue
  * &a - Green           &b - Aqua
- * &c - Red             &d - Light Purlple
+ * &c - Red             &d - Light Purple
  * &e - Yellow          &f - Withe
  * 
  * &o - Italic          &l - Bold

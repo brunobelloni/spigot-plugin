@@ -20,7 +20,7 @@ public class Plugin extends JavaPlugin {
 
     private PluginManager pluginManager = this.getServer().getPluginManager();
 
-    private File playerFile = new File(this.getDataFolder(), "stats.yml");
+    private File playerFile = new File(this.getDataFolder(), "stats.json");
     private FileConfiguration playerConfig = loadConfiguration(playerFile);
     
 
