@@ -18,22 +18,14 @@ import org.bukkit.ChatColor;
  * &n - Underline       &m - Striketrhough
  * &k - 01ain           &r - Reset
  */
+public class Messages {
 
-public enum Messages {
+    public static String DONT_HAVE_PERMISSION = applyColor("&cVocê não tem permissão!");
+    public static String CHOOSE_KIT = applyColor("&7Você escolheu o kit &c");
+    public static String KIT_CHEST_NAME = applyColor("&cSelecione seu Kit");
+    public static String COOLDOWN_WARNING = applyColor("&cEspere o tempo de recarga!");
 
-    DONT_HAVE_PERMISSION("&cVocê não tem permissão!"),
-    CHOOSE_KIT("&7Você escolheu o kit &c"),
-    KIT_CHEST_NAME("&cSelecione seu Kit"),
-    COOLDOWN_WARNING("&cEspere o tempo de recarga!");
-
-    private final String message;
-
-    private Messages(String message) {
-        this.message = ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    @Override
-    public String toString() {
-        return this.message;
+    private static String applyColor(String msg) {
+        return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }

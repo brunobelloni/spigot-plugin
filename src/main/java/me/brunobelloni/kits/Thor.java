@@ -34,7 +34,7 @@ public class Thor extends AbstractKit {
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
         if (!sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(Messages.DONT_HAVE_PERMISSION + "");
+            sender.sendMessage(Messages.DONT_HAVE_PERMISSION);
             return true;
         }
 

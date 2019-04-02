@@ -1,4 +1,4 @@
-package me.brunobelloni.chests;
+package me.brunobelloni.chestgui;
 
 import java.util.ArrayList;
 import java.util.Arrays;

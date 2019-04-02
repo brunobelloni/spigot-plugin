@@ -1,18 +1,18 @@
-package me.brunobelloni.structure;
+package me.brunobelloni.types;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.enums.Messages;
-import static me.brunobelloni.structure.HashHandler.playerDataHandler;
+import static me.brunobelloni.types.HashHandler.playerDataHandler;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
-public class CommandListTree extends BukkitCommand {
+public class HashCmdHandler extends BukkitCommand {
 
-    public CommandListTree(String name) {
+    public HashCmdHandler(String name) {
         super(name);
         this.description = "Find the last time a player was online";
         this.usageMessage = "/seen <player>";

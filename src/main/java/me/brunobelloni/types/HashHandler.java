@@ -1,4 +1,4 @@
-package me.brunobelloni.structure;
+package me.brunobelloni.types;
 
 import java.util.HashMap;
 import java.util.UUID;

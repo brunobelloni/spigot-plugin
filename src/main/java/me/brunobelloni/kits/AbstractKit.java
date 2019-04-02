@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
-import static me.brunobelloni.structure.HashHandler.playerDataHandler;
+import static me.brunobelloni.types.HashHandler.playerDataHandler;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.defaults.BukkitCommand;

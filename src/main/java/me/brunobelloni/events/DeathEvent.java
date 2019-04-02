@@ -3,7 +3,7 @@ package me.brunobelloni.events;
 import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
-import static me.brunobelloni.structure.HashHandler.playerDataHandler;
+import static me.brunobelloni.types.HashHandler.playerDataHandler;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

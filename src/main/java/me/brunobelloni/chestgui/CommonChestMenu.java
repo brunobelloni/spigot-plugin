@@ -1,8 +1,8 @@
-package me.brunobelloni.chests;
+package me.brunobelloni.chestgui;
 
 import me.brunobelloni.Plugin;
-import me.brunobelloni.chests.IconMenu.Row;
-import me.brunobelloni.chests.IconMenu.onClick;
+import me.brunobelloni.chestgui.IconMenu.Row;
+import me.brunobelloni.chestgui.IconMenu.onClick;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

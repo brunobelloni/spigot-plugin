@@ -2,13 +2,13 @@ package me.brunobelloni;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import static me.brunobelloni.chests.CommonChestMenu.setCommonChestMenu;
+import static me.brunobelloni.chestgui.CommonChestMenu.setCommonChestMenu;
 import me.brunobelloni.events.DeathEvent;
 import me.brunobelloni.events.JoinEvent;
 import me.brunobelloni.kits.Pvp;
 import me.brunobelloni.kits.Thor;
-import me.brunobelloni.structure.CommandListTree;
-import me.brunobelloni.structure.HashHandler;
+import me.brunobelloni.types.HashCmdHandler;
+import me.brunobelloni.types.HashHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -58,7 +58,7 @@ public class Plugin extends JavaPlugin {
         bukkitCommandMap.setAccessible(true);
         CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
-        commandMap.register("arvore", new CommandListTree("arvore"));
+        commandMap.register("arvore", new HashCmdHandler("arvore"));
 
     }
 
