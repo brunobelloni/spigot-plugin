@@ -2,11 +2,13 @@ package me.brunobelloni;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.sql.ResultSet;
 import static me.brunobelloni.chestgui.CommonChestMenu.setCommonChestMenu;
 import me.brunobelloni.events.DeathEvent;
 import me.brunobelloni.events.JoinEvent;
 import me.brunobelloni.kits.Pvp;
 import me.brunobelloni.kits.Thor;
+import me.brunobelloni.sqlite.SQLiteTest;
 import me.brunobelloni.types.HashCmdHandler;
 import me.brunobelloni.types.HashHandler;
 import org.bukkit.Bukkit;
@@ -20,17 +22,31 @@ public class Plugin extends JavaPlugin {
 
     private PluginManager pluginManager = this.getServer().getPluginManager();
 
-    private File playerFile = new File(this.getDataFolder(), "stats.json");
+    private File playerFile = new File(this.getDataFolder(), "stats.yml");
     private FileConfiguration playerConfig = loadConfiguration(playerFile);
-    
+
+    private SQLiteTest test = new SQLiteTest(this);
 
     @Override
     public void onDisable() {
-        
+
     }
 
     @Override
     public void onEnable() {
+        
+        try {
+            ResultSet rs;
+
+            rs = test.displayUsers();
+
+            while (rs.next()) {
+                System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (!playerFile.exists()) {
             saveResource(playerFile.getName(), false);
             getServer().getConsoleSender().sendMessage("§astats.yml criado com sucesso!");
