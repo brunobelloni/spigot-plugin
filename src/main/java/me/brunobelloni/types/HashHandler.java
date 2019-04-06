@@ -24,10 +24,10 @@ public class HashHandler implements Listener {
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent playerLoginEvent) throws ClassNotFoundException, SQLException {
         Player p = playerLoginEvent.getPlayer();
-        Gamer g = new Gamer(p);
-        playerDataHandler.put(g.getUUID(), g);
 
-        database.insert(g.getUUID());
+        database.insert(p);
+        Gamer g = database.select(p);
+        playerDataHandler.put(g.getUUID(), g);
     }
 
     @EventHandler

@@ -15,6 +15,9 @@ public class Gamer implements Comparable<Gamer> {
 
     private final Player player;
     private Double money;
+    private Integer kills;
+    private Integer deaths;
+
     private List<String> availableKits;
     private long cooldown;
     private Abilitys ability;
@@ -145,5 +148,21 @@ public class Gamer implements Comparable<Gamer> {
     @Override
     public int compareTo(Gamer gamer) {
         return this.player.getUniqueId().compareTo(gamer.getUUID());
+    }
+
+    public Integer getKills() {
+        return kills;
+    }
+
+    public void setKills(Integer kills) {
+        this.kills = kills;
+    }
+
+    public Integer getDeaths() {
+        return deaths;
+    }
+
+    public void setDeaths(Integer deaths) {
+        this.deaths = deaths;
     }
 }

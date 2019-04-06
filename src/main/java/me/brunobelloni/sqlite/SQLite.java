@@ -2,18 +2,18 @@ package me.brunobelloni.sqlite;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
+import me.brunobelloni.types.Gamer;
+import org.bukkit.entity.Player;
 
 public class SQLite {
 
     private Plugin plugin;
-    private static Connection con;
-    private static boolean hasData = false;
+    private Connection con;
     private String url;
 
     public SQLite(Plugin plugin) throws ClassNotFoundException, SQLException {
@@ -33,7 +33,7 @@ public class SQLite {
 
         String sql = "CREATE TABLE IF NOT EXISTS gamer ("
                 + "id UUID PRIMARY KEY, "
-                + "money INTEGER NOT NULL DEFAULT 0, "
+                + "money REAL NOT NULL DEFAULT 0, "
                 + "kills INTEGER NOT NULL DEFAULT 0, "
                 + "deaths INTEGER NOT NULL DEFAULT 0 "
                 + ");";
@@ -57,32 +57,39 @@ public class SQLite {
         con.close();
     }
 
-    public void insert(UUID uuid) throws ClassNotFoundException, SQLException {
-        String sql = "INSERT OR IGNORE INTO gamer(id) VALUES('" + uuid + "')";
+    public void insert(Player player) throws ClassNotFoundException, SQLException {
+        UUID uuid = player.getUniqueId();
+
+        String sql = "INSERT OR IGNORE INTO gamer(id) VALUES('" + uuid + "');";
 
         getConnection();
 
-        PreparedStatement state = con.prepareStatement(sql);
-        state.executeUpdate();
+        Statement stmt = con.createStatement();
+        stmt.execute(sql);
 
         con.close();
     }
 
-    public void selectAll() throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM gamer";
+    public Gamer select(Player player) throws ClassNotFoundException, SQLException {
+        UUID uuid = player.getUniqueId();
+
+        String sql = "SELECT g.money, g.kills, g.deaths "
+                + "FROM gamer g "
+                + "WHERE id = '" + uuid + "';";
 
         getConnection();
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
-        // loop through the result set  
+        Gamer g = new Gamer(player);
         while (rs.next()) {
-            System.out.println(rs.getInt("id") + "\t"
-                    + rs.getString("name") + "\t"
-                    + rs.getDouble("capacity"));
+            g.setMoney(rs.getDouble("money"));
+            g.setKills(rs.getInt("kills"));
+            g.setDeaths(rs.getInt("deaths"));
         }
 
+        con.close();
+        return g;
     }
-
 }
