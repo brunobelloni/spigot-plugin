@@ -11,7 +11,6 @@ public class Pvp extends AbstractKit {
 
     public Pvp(String name) {
         super(name);
-        System.out.println(name);
     }
 
     @Override

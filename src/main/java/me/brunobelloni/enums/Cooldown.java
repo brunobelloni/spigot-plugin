@@ -1,16 +1,7 @@
 package me.brunobelloni.enums;
 
-public enum Cooldown {
+public class Cooldown {
 
-    THOR_COOLDOWN(10l);
+    public static Integer THOR_COOLDOWN = 10;
 
-    private long cooldown;
-
-    private Cooldown(long cooldown) {
-        this.cooldown = cooldown * 20l;
-    }
-
-    public long getCooldown() {
-        return cooldown;
-    }
 }

@@ -34,7 +34,7 @@ public class Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        
+
         try {
             ResultSet rs;
 
@@ -84,7 +84,6 @@ public class Plugin extends JavaPlugin {
         CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
         commandMap.register("pvp", new Pvp("pvp"));
-        commandMap.register("thor", new Thor("thor", this));
-        this.pluginManager.registerEvents(new Thor("thor", this), this);
+        commandMap.register("thor", new Thor("thor"));
     }
 }

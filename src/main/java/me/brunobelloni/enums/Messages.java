@@ -23,7 +23,8 @@ public class Messages {
     public static String DONT_HAVE_PERMISSION = applyColor("&cVocê não tem permissão!");
     public static String CHOOSE_KIT = applyColor("&7Você escolheu o kit &c");
     public static String KIT_CHEST_NAME = applyColor("&cSelecione seu Kit");
-    public static String COOLDOWN_WARNING = applyColor("&cEspere o tempo de recarga!");
+    public static String COOLDOWN_WARNING_BEFORE = applyColor("&cEspere ");
+    public static String COOLDOWN_WARNING_AFTER = applyColor("&c segundos para usar novamente!");
 
     private static String applyColor(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
