@@ -12,7 +12,6 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-
 public abstract class AbstractKit extends BukkitCommand implements Listener {
 
     protected Plugin plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
@@ -21,8 +20,6 @@ public abstract class AbstractKit extends BukkitCommand implements Listener {
 
     public AbstractKit(String name) {
         super(name);
-        System.out.println(this);
-        
         this.description = "Escolha o kit " + name;
         this.usageMessage = "/" + name;
         this.setPermission("kit." + name);

@@ -3,6 +3,7 @@ package me.brunobelloni.sqlite;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
@@ -65,6 +66,23 @@ public class SQLite {
         state.executeUpdate();
 
         con.close();
+    }
+
+    public void selectAll() throws ClassNotFoundException, SQLException {
+        String sql = "SELECT * FROM gamer";
+
+        getConnection();
+
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // loop through the result set  
+        while (rs.next()) {
+            System.out.println(rs.getInt("id") + "\t"
+                    + rs.getString("name") + "\t"
+                    + rs.getDouble("capacity"));
+        }
+
     }
 
 }
