@@ -2,8 +2,17 @@ package me.brunobelloni;
 
 import java.lang.reflect.Field;
 import static me.brunobelloni.chestgui.CommonChestMenu.setCommonChestMenu;
-import me.brunobelloni.events.DeathEvent;
-import me.brunobelloni.events.JoinEvent;
+import me.brunobelloni.events.ChatFormat;
+import me.brunobelloni.events.CmdPreprocess;
+import me.brunobelloni.events.ItemDrop;
+import me.brunobelloni.events.MobSpawn;
+import me.brunobelloni.events.WeatherEvent;
+import me.brunobelloni.events.player.BuildEvent;
+import me.brunobelloni.events.player.DeathEvent;
+import me.brunobelloni.events.player.FoodEvent;
+import me.brunobelloni.events.player.JoinEvent;
+import me.brunobelloni.events.player.QuitEvent;
+import me.brunobelloni.events.pvp.Soup;
 import me.brunobelloni.kits.Pvp;
 import me.brunobelloni.kits.Thor;
 import me.brunobelloni.sqlite.SQLite;
@@ -26,14 +35,9 @@ public class Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         try {
             database = new SQLite(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        try {
             setCommonChestMenu();
             bindEvents();
             bindCommands();
@@ -48,6 +52,15 @@ public class Plugin extends JavaPlugin {
 
         this.pluginManager.registerEvents(new DeathEvent(this), this);
         this.pluginManager.registerEvents(new JoinEvent(this), this);
+        this.pluginManager.registerEvents(new QuitEvent(this), this);
+        this.pluginManager.registerEvents(new WeatherEvent(this), this);
+        this.pluginManager.registerEvents(new FoodEvent(this), this);
+        this.pluginManager.registerEvents(new ChatFormat(this), this);
+        this.pluginManager.registerEvents(new MobSpawn(this), this);
+        this.pluginManager.registerEvents(new BuildEvent(this), this);
+        this.pluginManager.registerEvents(new Soup(this), this);
+        this.pluginManager.registerEvents(new CmdPreprocess(this), this);
+        this.pluginManager.registerEvents(new ItemDrop(this), this);
     }
 
     private void bindCommands() throws Exception {

@@ -3,28 +3,28 @@ package me.brunobelloni.events;
 import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
-import static me.brunobelloni.types.HashHandler.playerDataHandler;
 import me.brunobelloni.types.Gamer;
+import static me.brunobelloni.types.HashHandler.playerDataHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class JoinEvent implements Listener {
+public class ChatFormat implements Listener {
 
     private Plugin plugin;
     public HashMap<UUID, Gamer> playerData;
 
-    public JoinEvent(Plugin plugin) {
+    public ChatFormat(Plugin plugin) {
         this.plugin = plugin;
         this.playerData = playerDataHandler;
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
+    public void chatFormat(AsyncPlayerChatEvent event) {
+        Player p = event.getPlayer();
         Gamer g = playerData.get(p.getUniqueId());
-        g.clearInventory();
-        g.giveMenuItens();
+        event.setFormat(ChatColor.GRAY + p.getDisplayName() + ChatColor.RED + " » " + ChatColor.GRAY + event.getMessage());
     }
 }

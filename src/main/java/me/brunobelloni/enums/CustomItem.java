@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public enum CustomItem {
 
     SOUP(Material.MUSHROOM_SOUP, "&cSoup", new String[]{"", "&7Beba para curar 3.5 corações de vida"}),
+    BOWL(Material.BOWL, "&cBowl", new String[]{"", "&7Pote de sopa"}),
     DIAMOND_SWORD(Material.DIAMOND_SWORD, "&cDiamond Sword", new String[]{"", ""}),
     THOR_ITEM(Material.WOOD_AXE, "&cThor", new String[]{"", ""});
 
