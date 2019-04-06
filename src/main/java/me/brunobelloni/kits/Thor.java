@@ -5,8 +5,10 @@ import me.brunobelloni.enums.Abilitys;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
 import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
 import me.brunobelloni.enums.Messages;
+import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
+import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -32,8 +34,12 @@ public class Thor extends AbstractKit {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(COMMAND_FROM_CONSOLE);
+        }
+
         if (!sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(Messages.DONT_HAVE_PERMISSION);
+            sender.sendMessage(DONT_HAVE_PERMISSION);
             return true;
         }
 
@@ -82,10 +88,9 @@ public class Thor extends AbstractKit {
                                 public void run() {
                                     g.removeCooldown();
                                 }
-                            }.runTaskLater(super.plugin, this.cooldown * 20);
+                            }.runTaskLaterAsynchronously(super.plugin, this.cooldown * 20);
                         }
                     }
-
                 }
             }
         }

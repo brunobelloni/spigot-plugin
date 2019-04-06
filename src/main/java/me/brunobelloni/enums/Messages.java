@@ -25,6 +25,7 @@ public class Messages {
     public static String KIT_CHEST_NAME = applyColor("&cSelecione seu Kit");
     public static String COOLDOWN_WARNING_BEFORE = applyColor("&cEspere ");
     public static String COOLDOWN_WARNING_AFTER = applyColor("&c segundos para usar novamente!");
+    public static String COMMAND_FROM_CONSOLE = applyColor("&cNão execute esse comando do console!");
 
     private static String applyColor(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);

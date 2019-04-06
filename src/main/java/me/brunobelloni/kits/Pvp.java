@@ -2,6 +2,8 @@ package me.brunobelloni.kits;
 
 import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.Messages;
+import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
+import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import me.brunobelloni.types.Gamer;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -15,14 +17,18 @@ public class Pvp extends AbstractKit {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(COMMAND_FROM_CONSOLE);
+        }
+
         if (!sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(Messages.DONT_HAVE_PERMISSION);
+            sender.sendMessage(DONT_HAVE_PERMISSION);
             return true;
         }
-        
+
         Player p = (Player) sender;
         Gamer g = playerData.get(p.getUniqueId());
-        
+
         g.clearInventory()
                 .setAbility(Abilitys.PVP)
                 .giveItem(diamondSword)
