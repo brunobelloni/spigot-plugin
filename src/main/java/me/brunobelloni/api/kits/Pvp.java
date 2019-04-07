@@ -1,6 +1,7 @@
-package me.brunobelloni.kits;
+package me.brunobelloni.api.kits;
 
 import me.brunobelloni.enums.Abilitys;
+import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
@@ -9,10 +10,10 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Pvp extends AbstractKit {
+public class Pvp extends KitAPI {
 
     public Pvp(String name) {
-        super(name);
+        super(name, DIAMOND_SWORD.getItem());
     }
 
     @Override
@@ -31,7 +32,7 @@ public class Pvp extends AbstractKit {
 
         g.clearInventory()
                 .setAbility(Abilitys.PVP)
-                .giveItem(diamondSword)
+                .giveItem(DIAMOND_SWORD.getItem())
                 .fillInventoryWithSoup()
                 .playSound(Sound.NOTE_BASS_GUITAR)
                 .sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());

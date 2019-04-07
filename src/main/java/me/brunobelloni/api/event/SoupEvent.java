@@ -16,11 +16,11 @@ public class SoupEvent extends Event {
         this.gp = gp;
     }
 
-    public GamePlayer getGp() {
+    public GamePlayer getGamePlayer() {
         return gp;
     }
 
-    public PlayerInteractEvent getE() {
+    public PlayerInteractEvent getEvent() {
         return e;
     }
 

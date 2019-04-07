@@ -14,7 +14,7 @@ public class PvpListeners implements Listener {
 
     @EventHandler
     public void soupUseEvent(SoupEvent e) {
-        Player p = e.getGp().getPlayer();
+        Player p = e.getGamePlayer().getPlayer();
         p.setHealth(p.getHealth() + 7.0D > p.getMaxHealth() ? p.getMaxHealth() : p.getHealth() + 7.0D);
         p.playSound(p.getLocation(), Sound.EAT, 1.0F, 1.0F);
         p.setItemInHand(BOWL.getItem());

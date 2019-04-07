@@ -20,14 +20,14 @@ import org.bukkit.ChatColor;
  */
 public class Messages {
 
-    public static String DONT_HAVE_PERMISSION = applyColor("&cVocê não tem permissão!");
-    public static String CHOOSE_KIT = applyColor("&7Você escolheu o kit &c");
-    public static String KIT_CHEST_NAME = applyColor("&cSelecione seu Kit");
-    public static String COOLDOWN_WARNING_BEFORE = applyColor("&cEspere ");
-    public static String COOLDOWN_WARNING_AFTER = applyColor("&c segundos para usar novamente!");
-    public static String COMMAND_FROM_CONSOLE = applyColor("&cNão execute esse comando do console!");
+    public static String DONT_HAVE_PERMISSION = colorize("&cVocê não tem permissão!");
+    public static String CHOOSE_KIT = colorize("&7Você escolheu o kit &c");
+    public static String KIT_CHEST_NAME = colorize("&cSelecione seu Kit");
+    public static String COOLDOWN_WARNING_BEFORE = colorize("&cEspere ");
+    public static String COOLDOWN_WARNING_AFTER = colorize("&c segundos para usar novamente!");
+    public static String COMMAND_FROM_CONSOLE = colorize("&cNão execute esse comando do console!");
 
-    private static String applyColor(String msg) {
+    private static String colorize(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }

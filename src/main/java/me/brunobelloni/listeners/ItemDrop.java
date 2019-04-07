@@ -3,8 +3,11 @@ package me.brunobelloni.listeners;
 import me.brunobelloni.Plugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
@@ -25,9 +28,13 @@ public class ItemDrop implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                e.getEntity().remove();
-                e.getLocation().getWorld().playEffect(e.getEntity().getLocation(), Effect.SMOKE, 10);
-                e.getLocation().getWorld().playSound(e.getEntity().getLocation(), Sound.LAVA_POP, 1.0F, 1.0F);
+                Item item = e.getEntity();
+                Location loc = item.getLocation();
+                World world = loc.getWorld();
+
+                item.remove();
+                world.playEffect(loc, Effect.SMOKE, 10);
+                world.playSound(loc, Sound.LAVA_POP, 1.0F, 1.0F);
             }
         }.runTaskLater(plugin, 5 * 20);
     }

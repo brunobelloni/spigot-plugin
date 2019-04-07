@@ -1,12 +1,12 @@
 package me.brunobelloni;
 
 import java.lang.reflect.Field;
-import static me.brunobelloni.api.chest.CommonChestMenu.setCommonChestMenu;
-import me.brunobelloni.api.event.EventListener;
+import me.brunobelloni.api.chest.KitMenu;
+import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.controllers.PlayerController;
 import me.brunobelloni.dao.Database;
-import me.brunobelloni.kits.Pvp;
-import me.brunobelloni.kits.Thor;
+import me.brunobelloni.api.kits.Pvp;
+import me.brunobelloni.api.kits.Thor;
 import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
@@ -39,12 +39,9 @@ public class Plugin extends JavaPlugin {
         try {
             database = new Database();
             setCommandRegister();
-
         } catch (Exception e) {
             System.out.println("[ERROR] " + e);
         } finally {
-
-            setCommonChestMenu();
             bindCommands();
             bindEvents();
             bindKits();
@@ -54,7 +51,7 @@ public class Plugin extends JavaPlugin {
     private void bindEvents() {
         this.pluginManager.registerEvents(new PlayerController(this), this);
 
-        this.pluginManager.registerEvents(new EventListener(), this);
+        this.pluginManager.registerEvents(new EventAPI(), this);
         this.pluginManager.registerEvents(new ItemDrop(), this);
         this.pluginManager.registerEvents(new ChatFormat(), this);
         this.pluginManager.registerEvents(new JoinServer(), this);
@@ -64,6 +61,8 @@ public class Plugin extends JavaPlugin {
         this.pluginManager.registerEvents(new DeathRespawn(), this);
         this.pluginManager.registerEvents(new UtilListeners(), this);
         this.pluginManager.registerEvents(new CmdPreprocess(), this);
+        
+        this.pluginManager.registerEvents(new KitMenu(), this);
     }
 
     private void setCommandRegister() throws Exception {

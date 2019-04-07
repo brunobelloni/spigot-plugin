@@ -1,6 +1,5 @@
 package me.brunobelloni.controllers;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
@@ -23,8 +22,8 @@ public class PlayerController implements Listener {
     }
 
     @EventHandler
-    public GamePlayer onPlayerLogin(PlayerLoginEvent playerLoginEvent) throws ClassNotFoundException, SQLException {
-        Player p = playerLoginEvent.getPlayer();
+    public GamePlayer onPlayerLogin(PlayerLoginEvent e) throws Exception {
+        Player p = e.getPlayer();
 
         database.insert(p);
         GamePlayer g = database.select(p);
@@ -32,8 +31,8 @@ public class PlayerController implements Listener {
     }
 
     @EventHandler
-    public GamePlayer onPlayerQuit(PlayerQuitEvent playerQuitEvent) {
-        Player p = playerQuitEvent.getPlayer();
+    public GamePlayer onPlayerQuit(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
         return onlinePlayersController.remove(p.getUniqueId());
     }
 }

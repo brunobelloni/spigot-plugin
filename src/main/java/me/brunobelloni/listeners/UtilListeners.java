@@ -12,17 +12,17 @@ public class UtilListeners implements Listener {
     }
 
     @EventHandler
-    public void neverRain(WeatherChangeEvent event) {
-        event.setCancelled(true);
+    public void neverRain(WeatherChangeEvent e) {
+        e.setCancelled(true);
     }
 
     @EventHandler
-    public void foodLevelChange(FoodLevelChangeEvent event) {
-        event.setFoodLevel(20);
+    public void foodLevelChange(FoodLevelChangeEvent e) {
+        e.setFoodLevel(20);
     }
     
        @EventHandler
-    public void creatureSpawn(CreatureSpawnEvent event) {
-        event.setCancelled(true);
+    public void creatureSpawn(CreatureSpawnEvent e) {
+        e.setCancelled(true);
     }
 }

@@ -12,8 +12,8 @@ public class ChatFormat implements Listener {
     }
 
     @EventHandler
-    public void chatFormat(AsyncPlayerChatEvent event) {
-        Player p = event.getPlayer();
-        event.setFormat(ChatColor.GRAY + p.getDisplayName() + ChatColor.RED + " » " + ChatColor.GRAY + event.getMessage());
+    public void chatFormat(AsyncPlayerChatEvent e) {
+        Player p = e.getPlayer();
+        e.setFormat(ChatColor.GRAY + p.getDisplayName() + ChatColor.RED + " » " + ChatColor.GRAY + e.getMessage());
     }
 }

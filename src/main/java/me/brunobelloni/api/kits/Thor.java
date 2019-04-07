@@ -1,8 +1,9 @@
-package me.brunobelloni.kits;
+package me.brunobelloni.api.kits;
 
 import java.util.HashSet;
 import me.brunobelloni.enums.Abilitys;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
+import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
 import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
@@ -21,13 +22,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class Thor extends AbstractKit {
+public class Thor extends KitAPI {
 
     private ItemStack thorItem;
     private Integer cooldown;
 
     public Thor(String name) {
-        super(name);
+        super(name, DIAMOND_SWORD.getItem());
         this.cooldown = THOR_COOLDOWN;
         this.thorItem = THOR_ITEM.getItem();
     }
@@ -48,7 +49,7 @@ public class Thor extends AbstractKit {
 
         g.clearInventory()
                 .setAbility(Abilitys.THOR)
-                .giveItem(diamondSword)
+                .giveItem(DIAMOND_SWORD.getItem())
                 .giveItem(thorItem)
                 .fillInventoryWithSoup()
                 .playSound(Sound.NOTE_BASS_GUITAR)
