@@ -44,7 +44,7 @@ public class Thor extends AbstractKit {
         }
 
         Player p = (Player) sender;
-        GamePlayer g = playerData.get(p.getUniqueId());
+        GamePlayer g = onlinePlayers.get(p.getUniqueId());
 
         g.clearInventory()
                 .setAbility(Abilitys.THOR)
@@ -61,7 +61,7 @@ public class Thor extends AbstractKit {
     public void onPlayerThor(PlayerInteractEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();
-            final GamePlayer g = playerData.get(p.getUniqueId());
+            final GamePlayer g = onlinePlayers.get(p.getUniqueId());
 
             if (g.getAbility() == Abilitys.THOR) {
                 if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {

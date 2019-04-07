@@ -62,7 +62,7 @@ public class IconMenu implements Listener {
     }
 
     public List<Player> getViewers() {
-        List<Player> viewers = new ArrayList<Player>();
+        List<Player> viewers = new ArrayList<>();
         for (String s : viewing) {
             viewers.add(Bukkit.getPlayer(s));
         }

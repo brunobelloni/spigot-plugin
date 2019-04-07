@@ -3,8 +3,8 @@ package me.brunobelloni.listeners.player;
 import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
+import static me.brunobelloni.controllers.PlayerController.onlinePlayersController;
 import me.brunobelloni.game.GamePlayer;
-import static me.brunobelloni.controllers.PlayerController.playerDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,14 +13,14 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class DeathEvent implements Listener {
+public class DeathRespawn implements Listener {
 
     private Plugin plugin;
-    public HashMap<UUID, GamePlayer> playerData;
+    public HashMap<UUID, GamePlayer> onlinePlayers;
 
-    public DeathEvent() {
+    public DeathRespawn() {
         this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
-        this.playerData = playerDataHandler;
+        this.onlinePlayers = onlinePlayersController;
     }
 
     @EventHandler
@@ -28,7 +28,7 @@ public class DeathEvent implements Listener {
         e.setDeathMessage(null);
 
         final Player p = e.getEntity();
-        GamePlayer g = playerData.get(p.getUniqueId());
+        GamePlayer g = onlinePlayers.get(p.getUniqueId());
         g.removeAbility();
         p.sendMessage("Você morreu!");
 
@@ -43,7 +43,7 @@ public class DeathEvent implements Listener {
     @EventHandler
     public void PlayerRespawn(PlayerRespawnEvent event) {
         Player p = event.getPlayer();
-        GamePlayer g = playerData.get(p.getUniqueId());
+        GamePlayer g = onlinePlayers.get(p.getUniqueId());
         g.clearInventory();
         g.giveMenuItens();
         p.sendMessage("Você renasceu!");

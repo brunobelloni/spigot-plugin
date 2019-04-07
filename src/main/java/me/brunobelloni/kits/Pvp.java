@@ -27,7 +27,7 @@ public class Pvp extends AbstractKit {
         }
 
         Player p = (Player) sender;
-        GamePlayer g = playerData.get(p.getUniqueId());
+        GamePlayer g = onlinePlayers.get(p.getUniqueId());
 
         g.clearInventory()
                 .setAbility(Abilitys.PVP)

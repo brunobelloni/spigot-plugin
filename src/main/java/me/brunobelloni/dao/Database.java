@@ -6,19 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
-import me.brunobelloni.Plugin;
 import me.brunobelloni.game.GamePlayer;
 import org.bukkit.entity.Player;
 
 public class Database {
 
-    private Plugin plugin;
     private Connection con;
     private String url;
 
-    public Database(Plugin plugin) throws ClassNotFoundException, SQLException {
-        this.plugin = plugin;
-        this.url = "jdbc:sqlite:" + plugin.getDataFolder() + "/data.db";
+    public Database() throws ClassNotFoundException, SQLException {
+        this.url = "jdbc:sqlite:plugins/SpigotPlugin/data.db";
         this.initialize();
     }
 

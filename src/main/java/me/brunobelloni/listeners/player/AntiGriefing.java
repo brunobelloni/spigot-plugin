@@ -2,8 +2,8 @@ package me.brunobelloni.listeners.player;
 
 import java.util.HashMap;
 import java.util.UUID;
+import static me.brunobelloni.controllers.PlayerController.onlinePlayersController;
 import me.brunobelloni.game.GamePlayer;
-import static me.brunobelloni.controllers.PlayerController.playerDataHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,12 +12,12 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class BuildEvent implements Listener {
+public class AntiGriefing implements Listener {
 
-    public HashMap<UUID, GamePlayer> playerData;
+    public HashMap<UUID, GamePlayer> onlinePlayers;
 
-    public BuildEvent() {
-        this.playerData = playerDataHandler;
+    public AntiGriefing() {
+        this.onlinePlayers = onlinePlayersController;
     }
 
     @EventHandler
