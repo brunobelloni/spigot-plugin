@@ -1,6 +1,5 @@
-package me.brunobelloni.api.kits;
+package me.brunobelloni.game;
 
-import me.brunobelloni.game.GamePlayer;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class CooldownAPI extends BukkitRunnable {

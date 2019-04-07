@@ -8,11 +8,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class SoupEvent extends Event {
 
     private final GamePlayer gp;
-    private final PlayerInteractEvent e;
+    private final PlayerInteractEvent event;
     private static final HandlerList handlers = new HandlerList();
 
-    public SoupEvent(PlayerInteractEvent e, GamePlayer gp) {
-        this.e = e;
+    public SoupEvent(PlayerInteractEvent event, GamePlayer gp) {
+        this.event = event;
         this.gp = gp;
     }
 
@@ -21,7 +21,7 @@ public class SoupEvent extends Event {
     }
 
     public PlayerInteractEvent getEvent() {
-        return e;
+        return event;
     }
 
     @Override

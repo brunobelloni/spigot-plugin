@@ -26,8 +26,8 @@ public class PlayerController implements Listener {
         Player p = e.getPlayer();
 
         database.insert(p);
-        GamePlayer g = database.select(p);
-        return onlinePlayersController.put(g.getUUID(), g);
+        GamePlayer gp = database.select(p);
+        return onlinePlayersController.put(gp.getUUID(), gp);
     }
 
     @EventHandler

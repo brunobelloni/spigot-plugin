@@ -28,8 +28,9 @@ public class DeathRespawn implements Listener {
         e.setDeathMessage(null);
 
         final Player p = e.getEntity();
-        GamePlayer g = onlinePlayers.get(p.getUniqueId());
-        g.removeAbility();
+        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
+        gp.removeAbility();
+        gp.removeCooldown();
 
         new BukkitRunnable() {
             @Override
@@ -42,8 +43,8 @@ public class DeathRespawn implements Listener {
     @EventHandler
     public void PlayerRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
-        GamePlayer g = onlinePlayers.get(p.getUniqueId());
-        g.clearInventory();
-        g.giveMenuItens();
+        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
+        gp.clearInventory();
+        gp.giveMenuItens();
     }
 }

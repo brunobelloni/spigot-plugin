@@ -16,11 +16,13 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class KitAPI extends BukkitCommand implements Listener {
 
+    private String name;
     protected Plugin plugin;
     protected HashMap<UUID, GamePlayer> onlinePlayers;
 
     public KitAPI(final String name, ItemStack item) {
         super(name);
+        this.name = name;
         this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
         this.description = "Escolha o kit " + name;
         this.usageMessage = "/" + name;
@@ -28,13 +30,15 @@ public abstract class KitAPI extends BukkitCommand implements Listener {
         this.setAliases(new ArrayList<String>());
         this.onlinePlayers = onlinePlayersController;
 
-        addButtonInOrder(item, new onClick() {
-            @Override
-            public boolean click(Player clicker) {
-                clicker.performCommand(name);
-                return true;
-            }
-        });
+        addButtonInOrder(item, click);
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
+
+    private onClick click = new onClick() {
+        @Override
+        public boolean click(Player clicker) {
+            clicker.performCommand(name);
+            return true;
+        }
+    };
 }

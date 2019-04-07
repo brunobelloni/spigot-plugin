@@ -28,9 +28,9 @@ public class Pvp extends KitAPI {
         }
 
         Player p = (Player) sender;
-        GamePlayer g = onlinePlayers.get(p.getUniqueId());
+        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
 
-        g.clearInventory()
+        gp.clearInventory()
                 .setAbility(Abilitys.PVP)
                 .giveItem(DIAMOND_SWORD.getItem())
                 .fillInventoryWithSoup()

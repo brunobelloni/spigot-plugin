@@ -21,8 +21,8 @@ public class JoinServer implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
-        GamePlayer g = onlinePlayers.get(p.getUniqueId());
-        g.clearInventory();
-        g.giveMenuItens();
+        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
+        gp.clearInventory();
+        gp.giveMenuItens();
     }
 }
