@@ -1,9 +1,10 @@
-package me.brunobelloni.types;
+package me.brunobelloni.controllers;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
+import me.brunobelloni.game.GamePlayer;
 import static me.brunobelloni.Plugin.database;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,12 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class HashHandler implements Listener {
+public class PlayerController implements Listener {
 
     private Plugin plugin;
-    public static HashMap<UUID, Gamer> playerDataHandler;
+    public static HashMap<UUID, GamePlayer> playerDataHandler;
 
-    public HashHandler(Plugin plugin) {
+    public PlayerController(Plugin plugin) {
         this.plugin = plugin;
         playerDataHandler = new HashMap<>();
     }
@@ -26,7 +27,7 @@ public class HashHandler implements Listener {
         Player p = playerLoginEvent.getPlayer();
 
         database.insert(p);
-        Gamer g = database.select(p);
+        GamePlayer g = database.select(p);
         playerDataHandler.put(g.getUUID(), g);
     }
 

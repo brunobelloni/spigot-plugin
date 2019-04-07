@@ -1,16 +1,13 @@
-package me.brunobelloni.chestgui;
+package me.brunobelloni.chestapi;
 
-import me.brunobelloni.Plugin;
-import me.brunobelloni.chestgui.IconMenu.Row;
-import me.brunobelloni.chestgui.IconMenu.onClick;
+import me.brunobelloni.chestapi.IconMenu.Row;
+import me.brunobelloni.chestapi.IconMenu.onClick;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class CommonChestMenu {
-
-    private Plugin plugin;
 
     private static IconMenu menu = new IconMenu("IconMenu", 2, new onClick() {
         @Override
@@ -22,8 +19,7 @@ public class CommonChestMenu {
         }
     });
 
-    public CommonChestMenu(Plugin plugin) {
-        this.plugin = plugin;
+    public CommonChestMenu() {
     }
 
     public static void setCommonChestMenu() {
@@ -41,5 +37,4 @@ public class CommonChestMenu {
     public static IconMenu getMenu() {
         return menu;
     }
-
 }

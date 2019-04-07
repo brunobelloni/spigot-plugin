@@ -1,23 +1,22 @@
 package me.brunobelloni;
 
 import java.lang.reflect.Field;
-import static me.brunobelloni.chestgui.CommonChestMenu.setCommonChestMenu;
-import me.brunobelloni.events.ChatFormat;
-import me.brunobelloni.events.CmdPreprocess;
-import me.brunobelloni.events.ItemDrop;
-import me.brunobelloni.events.MobSpawn;
-import me.brunobelloni.events.WeatherEvent;
-import me.brunobelloni.events.player.BuildEvent;
-import me.brunobelloni.events.player.DeathEvent;
-import me.brunobelloni.events.player.FoodEvent;
-import me.brunobelloni.events.player.JoinEvent;
-import me.brunobelloni.events.player.QuitEvent;
-import me.brunobelloni.events.pvp.Soup;
+import static me.brunobelloni.chestapi.CommonChestMenu.setCommonChestMenu;
+import me.brunobelloni.dao.Database;
+import me.brunobelloni.controllers.PlayerController;
 import me.brunobelloni.kits.Pvp;
 import me.brunobelloni.kits.Thor;
-import me.brunobelloni.sqlite.SQLite;
-import me.brunobelloni.types.HashCmdHandler;
-import me.brunobelloni.types.HashHandler;
+import me.brunobelloni.listeners.ChatFormat;
+import me.brunobelloni.listeners.CmdPreprocess;
+import me.brunobelloni.listeners.ItemDrop;
+import me.brunobelloni.listeners.MobSpawn;
+import me.brunobelloni.listeners.WeatherEvent;
+import me.brunobelloni.listeners.player.BuildEvent;
+import me.brunobelloni.listeners.player.DeathEvent;
+import me.brunobelloni.listeners.player.FoodEvent;
+import me.brunobelloni.listeners.player.JoinEvent;
+import me.brunobelloni.listeners.player.QuitEvent;
+import me.brunobelloni.listeners.pvp.Soup;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.PluginManager;
@@ -26,7 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Plugin extends JavaPlugin {
 
     private PluginManager pluginManager = this.getServer().getPluginManager();
-    public static SQLite database;
+    public static Database database;
 
     @Override
     public void onDisable() {
@@ -36,7 +35,7 @@ public class Plugin extends JavaPlugin {
     @Override
     public void onEnable() {
         try {
-            database = new SQLite(this);
+            database = new Database(this);
 
             setCommonChestMenu();
             bindEvents();
@@ -48,28 +47,25 @@ public class Plugin extends JavaPlugin {
     }
 
     private void bindEvents() {
-        this.pluginManager.registerEvents(new HashHandler(this), this);
+        this.pluginManager.registerEvents(new PlayerController(this), this);
 
-        this.pluginManager.registerEvents(new DeathEvent(this), this);
-        this.pluginManager.registerEvents(new JoinEvent(this), this);
-        this.pluginManager.registerEvents(new QuitEvent(this), this);
-        this.pluginManager.registerEvents(new WeatherEvent(this), this);
-        this.pluginManager.registerEvents(new FoodEvent(this), this);
-        this.pluginManager.registerEvents(new ChatFormat(this), this);
-        this.pluginManager.registerEvents(new MobSpawn(this), this);
-        this.pluginManager.registerEvents(new BuildEvent(this), this);
-        this.pluginManager.registerEvents(new Soup(this), this);
-        this.pluginManager.registerEvents(new CmdPreprocess(this), this);
-        this.pluginManager.registerEvents(new ItemDrop(this), this);
+        this.pluginManager.registerEvents(new DeathEvent(), this);
+        this.pluginManager.registerEvents(new JoinEvent(), this);
+        this.pluginManager.registerEvents(new QuitEvent(), this);
+        this.pluginManager.registerEvents(new WeatherEvent(), this);
+        this.pluginManager.registerEvents(new FoodEvent(), this);
+        this.pluginManager.registerEvents(new ChatFormat(), this);
+        this.pluginManager.registerEvents(new MobSpawn(), this);
+        this.pluginManager.registerEvents(new BuildEvent(), this);
+        this.pluginManager.registerEvents(new Soup(), this);
+        this.pluginManager.registerEvents(new CmdPreprocess(), this);
+        this.pluginManager.registerEvents(new ItemDrop(), this);
     }
 
     private void bindCommands() throws Exception {
         Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
         bukkitCommandMap.setAccessible(true);
         CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
-
-        commandMap.register("arvore", new HashCmdHandler("arvore"));
-
     }
 
     private void bindKits() throws Exception {

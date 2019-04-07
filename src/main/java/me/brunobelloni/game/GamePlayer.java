@@ -1,17 +1,17 @@
-package me.brunobelloni.types;
+package me.brunobelloni.game;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import static me.brunobelloni.chestgui.CommonChestMenu.getMenu;
-import me.brunobelloni.chestgui.IconMenu;
+import static me.brunobelloni.chestapi.CommonChestMenu.getMenu;
+import me.brunobelloni.chestapi.IconMenu;
 import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.CustomItem;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Gamer implements Comparable<Gamer> {
+public class GamePlayer implements Comparable<GamePlayer> {
 
     private final Player player;
     private Double money;
@@ -23,12 +23,12 @@ public class Gamer implements Comparable<Gamer> {
     private Abilitys ability;
     private IconMenu menu;
 
-    public Gamer() {
+    public GamePlayer() {
         this.player = null;
         System.currentTimeMillis();
     }
 
-    public Gamer(Player player) {
+    public GamePlayer(Player player) {
         this.player = player;
         this.money = 0.0;
         this.availableKits = new ArrayList<>();
@@ -37,12 +37,12 @@ public class Gamer implements Comparable<Gamer> {
         this.cooldown = 0L;
     }
 
-    public Gamer giveItem(ItemStack item) {
+    public GamePlayer giveItem(ItemStack item) {
         player.getInventory().addItem(item);
         return this;
     }
 
-    public Gamer setAbility(Abilitys ability) {
+    public GamePlayer setAbility(Abilitys ability) {
         this.ability = ability;
         return this;
     }
@@ -51,7 +51,7 @@ public class Gamer implements Comparable<Gamer> {
         return ability;
     }
 
-    public Gamer removeAbility() {
+    public GamePlayer removeAbility() {
         this.ability = Abilitys.NONE;
         return this;
     }
@@ -64,7 +64,7 @@ public class Gamer implements Comparable<Gamer> {
         return player.getUniqueId();
     }
 
-    public Gamer setMoney(Double money) {
+    public GamePlayer setMoney(Double money) {
         this.money = money;
         return this;
     }
@@ -73,17 +73,17 @@ public class Gamer implements Comparable<Gamer> {
         return money;
     }
 
-    public Gamer addMoney(Double money) {
+    public GamePlayer addMoney(Double money) {
         this.money += money;
         return this;
     }
 
-    public Gamer removeMoney(Double money) {
+    public GamePlayer removeMoney(Double money) {
         this.money -= money;
         return this;
     }
 
-    public Gamer fillInventoryWithSoup() {
+    public GamePlayer fillInventoryWithSoup() {
         ItemStack[] inventory = player.getInventory().getContents();
 
         ItemStack soup = CustomItem.SOUP.getItem();
@@ -97,27 +97,27 @@ public class Gamer implements Comparable<Gamer> {
         return this;
     }
 
-    public Gamer clearInventory() {
+    public GamePlayer clearInventory() {
         player.getInventory().clear();
         return this;
     }
 
-    public Gamer playSound(Sound sound) {
+    public GamePlayer playSound(Sound sound) {
         player.playSound(player.getLocation(), sound, 1, 1);
         return this;
     }
 
-    public Gamer sendMessage(String message) {
+    public GamePlayer sendMessage(String message) {
         player.sendMessage(message);
         return this;
     }
 
-    public Gamer giveMenuItens() {
+    public GamePlayer giveMenuItens() {
         this.player.sendMessage("Implementar os itens iniciais!");
         return this;
     }
 
-    public Gamer openInventoryMenu() {
+    public GamePlayer openInventoryMenu() {
         menu.open(this.player);
         return this;
     }
@@ -126,12 +126,12 @@ public class Gamer implements Comparable<Gamer> {
         return this.cooldown != 0L;
     }
 
-    public Gamer putCooldown(long cooldown) {
+    public GamePlayer putCooldown(long cooldown) {
         this.cooldown = cooldown;
         return this;
     }
 
-    public Gamer removeCooldown() {
+    public GamePlayer removeCooldown() {
         this.cooldown = 0L;
         return this;
     }
@@ -146,7 +146,7 @@ public class Gamer implements Comparable<Gamer> {
     }
 
     @Override
-    public int compareTo(Gamer gamer) {
+    public int compareTo(GamePlayer gamer) {
         return this.player.getUniqueId().compareTo(gamer.getUUID());
     }
 

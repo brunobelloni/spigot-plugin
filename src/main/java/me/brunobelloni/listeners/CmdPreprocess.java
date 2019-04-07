@@ -1,6 +1,5 @@
-package me.brunobelloni.events;
+package me.brunobelloni.listeners;
 
-import me.brunobelloni.Plugin;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,10 +7,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CmdPreprocess implements Listener {
 
-    private Plugin plugin;
-
-    public CmdPreprocess(Plugin plugin) {
-        this.plugin = plugin;
+    public CmdPreprocess() {
     }
 
     @EventHandler

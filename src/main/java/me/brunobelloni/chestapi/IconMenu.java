@@ -1,4 +1,4 @@
-package me.brunobelloni.chestgui;
+package me.brunobelloni.chestapi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,9 +20,8 @@ public class IconMenu implements Listener {
     private String name;
     private int size;
     private onClick click;
-    List<String> viewing = new ArrayList<>();
-
     private ItemStack[] items;
+    List<String> viewing = new ArrayList<>();
 
     public IconMenu(String name, int size, onClick click) {
         this.name = name;

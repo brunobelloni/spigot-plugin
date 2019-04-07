@@ -1,6 +1,5 @@
-package me.brunobelloni.events.pvp;
+package me.brunobelloni.listeners.pvp;
 
-import me.brunobelloni.Plugin;
 import static me.brunobelloni.enums.CustomItem.BOWL;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -12,10 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Soup implements Listener {
 
-    private Plugin plugin;
-
-    public Soup(Plugin plugin) {
-        this.plugin = plugin;
+    public Soup() {
     }
 
     @EventHandler

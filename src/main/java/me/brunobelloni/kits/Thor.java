@@ -9,7 +9,7 @@ import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import me.brunobelloni.types.Gamer;
+import me.brunobelloni.game.GamePlayer;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -44,7 +44,7 @@ public class Thor extends AbstractKit {
         }
 
         Player p = (Player) sender;
-        Gamer g = playerData.get(p.getUniqueId());
+        GamePlayer g = playerData.get(p.getUniqueId());
 
         g.clearInventory()
                 .setAbility(Abilitys.THOR)
@@ -61,7 +61,7 @@ public class Thor extends AbstractKit {
     public void onPlayerThor(PlayerInteractEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();
-            final Gamer g = playerData.get(p.getUniqueId());
+            final GamePlayer g = playerData.get(p.getUniqueId());
 
             if (g.getAbility() == Abilitys.THOR) {
                 if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {

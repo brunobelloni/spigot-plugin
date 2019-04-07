@@ -4,7 +4,7 @@ import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import me.brunobelloni.types.Gamer;
+import me.brunobelloni.game.GamePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -27,7 +27,7 @@ public class Pvp extends AbstractKit {
         }
 
         Player p = (Player) sender;
-        Gamer g = playerData.get(p.getUniqueId());
+        GamePlayer g = playerData.get(p.getUniqueId());
 
         g.clearInventory()
                 .setAbility(Abilitys.PVP)

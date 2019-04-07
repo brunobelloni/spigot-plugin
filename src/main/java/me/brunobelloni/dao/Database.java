@@ -1,4 +1,4 @@
-package me.brunobelloni.sqlite;
+package me.brunobelloni.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,16 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
-import me.brunobelloni.types.Gamer;
+import me.brunobelloni.game.GamePlayer;
 import org.bukkit.entity.Player;
 
-public class SQLite {
+public class Database {
 
     private Plugin plugin;
     private Connection con;
     private String url;
 
-    public SQLite(Plugin plugin) throws ClassNotFoundException, SQLException {
+    public Database(Plugin plugin) throws ClassNotFoundException, SQLException {
         this.plugin = plugin;
         this.url = "jdbc:sqlite:" + plugin.getDataFolder() + "/data.db";
         this.initialize();
@@ -70,7 +70,7 @@ public class SQLite {
         con.close();
     }
 
-    public Gamer select(Player player) throws ClassNotFoundException, SQLException {
+    public GamePlayer select(Player player) throws ClassNotFoundException, SQLException {
         UUID uuid = player.getUniqueId();
 
         String sql = "SELECT g.money, g.kills, g.deaths "
@@ -82,7 +82,7 @@ public class SQLite {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
-        Gamer g = new Gamer(player);
+        GamePlayer g = new GamePlayer(player);
         while (rs.next()) {
             g.setMoney(rs.getDouble("money"));
             g.setKills(rs.getInt("kills"));

@@ -1,6 +1,7 @@
-package me.brunobelloni.events;
+package me.brunobelloni.listeners;
 
 import me.brunobelloni.Plugin;
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,8 +16,8 @@ public class ItemDrop implements Listener {
 
     private Plugin plugin;
 
-    public ItemDrop(Plugin plugin) {
-        this.plugin = plugin;
+    public ItemDrop() {
+        this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
     }
 
     @EventHandler
