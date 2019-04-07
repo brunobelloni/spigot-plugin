@@ -1,7 +1,8 @@
 package me.brunobelloni;
 
 import java.lang.reflect.Field;
-import static me.brunobelloni.chestapi.CommonChestMenu.setCommonChestMenu;
+import static me.brunobelloni.api.chest.CommonChestMenu.setCommonChestMenu;
+import me.brunobelloni.api.event.EventListener;
 import me.brunobelloni.controllers.PlayerController;
 import me.brunobelloni.dao.Database;
 import me.brunobelloni.kits.Pvp;
@@ -13,8 +14,8 @@ import me.brunobelloni.listeners.UtilListeners;
 import me.brunobelloni.listeners.player.AntiGriefing;
 import me.brunobelloni.listeners.player.DeathRespawn;
 import me.brunobelloni.listeners.player.JoinServer;
+import me.brunobelloni.listeners.player.PvpListeners;
 import me.brunobelloni.listeners.player.QuitServer;
-import me.brunobelloni.listeners.pvp.Soup;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.PluginManager;
@@ -53,12 +54,13 @@ public class Plugin extends JavaPlugin {
     private void bindEvents() {
         this.pluginManager.registerEvents(new PlayerController(this), this);
 
-        this.pluginManager.registerEvents(new Soup(), this);
+        this.pluginManager.registerEvents(new EventListener(), this);
         this.pluginManager.registerEvents(new ItemDrop(), this);
         this.pluginManager.registerEvents(new ChatFormat(), this);
         this.pluginManager.registerEvents(new JoinServer(), this);
         this.pluginManager.registerEvents(new QuitServer(), this);
         this.pluginManager.registerEvents(new AntiGriefing(), this);
+        this.pluginManager.registerEvents(new PvpListeners(), this);
         this.pluginManager.registerEvents(new DeathRespawn(), this);
         this.pluginManager.registerEvents(new UtilListeners(), this);
         this.pluginManager.registerEvents(new CmdPreprocess(), this);

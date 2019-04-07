@@ -3,8 +3,8 @@ package me.brunobelloni.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import static me.brunobelloni.chestapi.CommonChestMenu.getMenu;
-import me.brunobelloni.chestapi.IconMenu;
+import static me.brunobelloni.api.chest.CommonChestMenu.getMenu;
+import me.brunobelloni.api.chest.IconMenu;
 import me.brunobelloni.enums.Abilitys;
 import me.brunobelloni.enums.CustomItem;
 import org.bukkit.Sound;
@@ -25,7 +25,6 @@ public class GamePlayer implements Comparable<GamePlayer> {
 
     public GamePlayer() {
         this.player = null;
-        System.currentTimeMillis();
     }
 
     public GamePlayer(Player player) {
