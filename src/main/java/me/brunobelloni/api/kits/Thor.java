@@ -18,9 +18,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class Thor extends KitAPI {
 
@@ -59,40 +60,38 @@ public class Thor extends KitAPI {
     }
 
     @EventHandler()
-    public void onPlayerThor(PlayerInteractEvent e) {
+    public void onThor(PlayerInteractEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();
             final GamePlayer g = onlinePlayers.get(p.getUniqueId());
-
-            if (g.getAbility() == Abilitys.THOR) {
+            if (g.getAbility() == Abilitys.THOR && p.getItemInHand().equals(THOR_ITEM.getItem())) {
                 if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-                    if (p.getItemInHand().equals(THOR_ITEM.getItem())) {
+                    long actualTime = System.nanoTime();
+                    if (g.isOnCooldown()) {
+                        double d = (actualTime - g.getCooldown()) / 1e9;
+                        int diff = this.cooldown - (int) d;
+                        g.sendMessage(COOLDOWN_WARNING_BEFORE + diff + COOLDOWN_WARNING_AFTER);
+                    } else {
+                        HashSet<Material> transparent = new HashSet<>();
+                        transparent.add(Material.AIR);
+                        Block block = e.getPlayer().getTargetBlock(transparent, 120);
+                        e.getPlayer().getWorld().strikeLightning(block.getLocation());
+                        g.putCooldown(actualTime);
 
-                        long actualTime = System.nanoTime();
-
-                        if (g.isOnCooldown()) {
-                            double d = (actualTime - g.getCooldown()) / 1e9;
-                            int diff = this.cooldown - (int) d;
-                            g.sendMessage(COOLDOWN_WARNING_BEFORE + diff + COOLDOWN_WARNING_AFTER);
-                        } else {
-                            //// Thor logic ////
-                            HashSet<Material> transparent = new HashSet<>();
-                            transparent.add(Material.AIR);
-                            Block block = e.getPlayer().getTargetBlock(transparent, 120);
-                            e.getPlayer().getWorld().strikeLightning(block.getLocation());
-                            ///////////////////
-
-                            g.putCooldown(actualTime);
-
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    g.removeCooldown();
-                                }
-                            }.runTaskLaterAsynchronously(super.plugin, this.cooldown * 20);
-                        }
+                        new CooldownAPI(g).runTaskLaterAsynchronously(super.plugin, this.cooldown * 20);
                     }
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onThorLightning(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player p = (Player) e.getEntity();
+            GamePlayer g = onlinePlayers.get(p.getUniqueId());
+            if (g.getAbility() == Abilitys.THOR && e.getCause().equals(DamageCause.LIGHTNING)) {
+                e.setCancelled(true);
             }
         }
     }
