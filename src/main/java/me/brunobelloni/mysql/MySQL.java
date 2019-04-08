@@ -1,4 +1,4 @@
-package me.brunobelloni.dao;
+package me.brunobelloni.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,12 +9,12 @@ import java.util.UUID;
 import me.brunobelloni.game.GamePlayer;
 import org.bukkit.entity.Player;
 
-public class Database {
+public class MySQL {
 
     private Connection con;
     private String url;
 
-    public Database() throws ClassNotFoundException, SQLException {
+    public MySQL() throws ClassNotFoundException, SQLException {
         this.url = "jdbc:sqlite:plugins/SpigotPlugin/data.db";
         this.initialize();
     }
