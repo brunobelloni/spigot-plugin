@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
+import org.bukkit.entity.Player;
 
 public class ConexaoMySQL {
 
@@ -32,24 +34,53 @@ public class ConexaoMySQL {
     public static void createGamePlayers() throws SQLException {
         Statement stmt = con.createStatement();
 
-        String sql = "CREATE TABLE IF NOT EXISTS gameplayer ("
-                + "gameplayer VARCHAR(40) NOT NULL PRIMARY KEY,"
-                + "money INTEGER NOT NULL DEFAULT 0,"
-                + "kills INTEGER NOT NULL DEFAULT 0,"
-                + "deaths INTEGER NOT NULL DEFAULT 0"
+        String sql = "CREATE TABLE IF NOT EXISTS player ("
+                + "id     VARCHAR(40) NOT NULL,"
+                + "money  INTEGER     NOT NULL DEFAULT 0,"
+                + "kills  INTEGER     NOT NULL DEFAULT 0,"
+                + "deaths INTEGER     NOT NULL DEFAULT 0,"
+                + "PRIMARY KEY (id)"
                 + ");";
         stmt.execute(sql);
 
-        sql = ("CREATE TABLE IF NOT EXISTS bans ("
-                + "gameplayer VARCHAR(40) NOT NULL PRIMARY KEY,"
-                + "banned_by VARCHAR(40) NOT NULL,"
-                + "reason VARCHAR(50) NOT NULL,"
-                + "banned_at DATE NOT NULL,"
+        sql = "CREATE TABLE IF NOT EXISTS bans ("
+                + "player  VARCHAR(40) NOT NULL,"
+                + "banned_by   VARCHAR(40) NOT NULL,"
+                + "reason      VARCHAR(50) NOT NULL,"
+                + "banned_at   DATE        NOT NULL,"
                 + "unbanned_at DATE,"
-                + "FOREIGN KEY(gameplayer) REFERENCES gameplayer(gameplayer),"
-                + "FOREIGN KEY(banned_by) REFERENCES gameplayer(gameplayer)"
-                + ");");
-
+                + "PRIMARY KEY(player),"
+                + "FOREIGN KEY(player)    REFERENCES player(id),"
+                + "FOREIGN KEY(banned_by) REFERENCES player(id)"
+                + ");";
         stmt.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS kit ("
+                + "id        SERIAL      NOT NULL PRIMARY KEY,"
+                + "descricao VARCHAR(40) NOT NULL,"
+                + "PRIMARY KEY(id)"
+                + ");";
+        stmt.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS player_kit ("
+                + "player  VARCHAR(40) NOT NULL,"
+                + "kit     INTEGER     NOT NULL,"
+                + "PRIMARY KEY(player, kit),"
+                + "FOREIGN KEY(player)    REFERENCES player(id),"
+                + "FOREIGN KEY(banned_by) REFERENCES player(id)"
+                + ");";
+        stmt.execute(sql);
+
+    }
+
+    public void insert(Player player) throws ClassNotFoundException, SQLException {
+        UUID uuid = player.getUniqueId();
+
+        String sql = "INSERT OR IGNORE INTO gamer(id) VALUES('" + uuid + "');";
+
+        Statement stmt = con.createStatement();
+        stmt.execute(sql);
+
+        con.close();
     }
 }
