@@ -3,60 +3,53 @@ package me.brunobelloni.mysql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConexaoMySQL {
 
-    public static String status = "Não conectou...";
+    private static final String USUARIO = "root";
+    private static final String SENHA = "password";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/minecraft";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
 
-    public ConexaoMySQL() {
+    private static Connection con;
+
+    public ConexaoMySQL() throws ClassNotFoundException, SQLException {
         openConnection();
+        createGamePlayers();
     }
 
-    public static java.sql.Connection openConnection() {
-        Connection connection = null;
-
-        try {
-            String driverName = "com.mysql.jdbc.Driver";
-            Class.forName(driverName);
-
-            String password = "password";
-            String username = "user";
-            String mydatabase = "mine";
-            String serverName = "6b0fbd4aed1b";
-            String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-
-            System.out.println("teste!!");
-            DriverManager.setLoginTimeout(1000);
-
-            connection = DriverManager.getConnection(url, username, password);
-
-            if (connection != null) {
-                status = ("STATUS--->Conectado com sucesso!");
-            } else {
-                status = ("STATUS--->Não foi possivel realizar conexão");
-            }
-            return connection;
-
-        } catch (ClassNotFoundException e) {
-            System.out.println("O driver expecificado nao foi encontrado.");
-            return null;
-        } catch (SQLException e) {
-            System.out.println("Nao foi possivel conectar ao Banco de Dados.");
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    public static String statusConection() {
-        return status;
+    public static java.sql.Connection openConnection() throws ClassNotFoundException, SQLException {
+        Class.forName(DRIVER);
+        con = DriverManager.getConnection(URL, USUARIO, SENHA);
+        return con;
     }
 
     public static void closeConnection() throws SQLException {
-        openConnection().close();
+        con.close();
     }
 
-    public static java.sql.Connection resetConnection() throws SQLException {
-        closeConnection();
-        return openConnection();
+    public static void createGamePlayers() throws SQLException {
+        Statement stmt = con.createStatement();
+
+        String sql = "CREATE TABLE IF NOT EXISTS gameplayer ("
+                + "gameplayer VARCHAR(40) NOT NULL PRIMARY KEY,"
+                + "money INTEGER NOT NULL DEFAULT 0,"
+                + "kills INTEGER NOT NULL DEFAULT 0,"
+                + "deaths INTEGER NOT NULL DEFAULT 0"
+                + ");";
+        stmt.execute(sql);
+
+        sql = ("CREATE TABLE IF NOT EXISTS bans ("
+                + "gameplayer VARCHAR(40) NOT NULL PRIMARY KEY,"
+                + "banned_by VARCHAR(40) NOT NULL,"
+                + "reason VARCHAR(50) NOT NULL,"
+                + "banned_at DATE NOT NULL,"
+                + "unbanned_at DATE,"
+                + "FOREIGN KEY(gameplayer) REFERENCES gameplayer(gameplayer),"
+                + "FOREIGN KEY(banned_by) REFERENCES gameplayer(gameplayer)"
+                + ");");
+
+        stmt.execute(sql);
     }
 }
