@@ -1,17 +1,19 @@
 package me.brunobelloni.game;
 
+import static me.brunobelloni.game.GamePlayer.removeCooldown;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class CooldownAPI extends BukkitRunnable {
 
-    private GamePlayer gp;
+    private Player p;
 
-    public CooldownAPI(GamePlayer gp) {
-        this.gp = gp;
+    public CooldownAPI(Player p) {
+        this.p = p;
     }
 
     @Override
     public void run() {
-        gp.removeCooldown();
+        removeCooldown(p);
     }
 }

@@ -2,6 +2,7 @@ package me.brunobelloni.api.kits;
 
 import java.util.HashSet;
 import me.brunobelloni.enums.Abilitys;
+import static me.brunobelloni.enums.Abilitys.THOR;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
 import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
@@ -11,7 +12,12 @@ import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import me.brunobelloni.game.CooldownAPI;
-import me.brunobelloni.game.GamePlayer;
+import static me.brunobelloni.game.GamePlayer.fillInventoryWithSoup;
+import static me.brunobelloni.game.GamePlayer.getAbility;
+import static me.brunobelloni.game.GamePlayer.getCooldown;
+import static me.brunobelloni.game.GamePlayer.isOnCooldown;
+import static me.brunobelloni.game.GamePlayer.putCooldown;
+import static me.brunobelloni.game.GamePlayer.setAbility;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -47,15 +53,13 @@ public class Thor extends KitAPI {
         }
 
         Player p = (Player) sender;
-        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
 
-        gp.clearInventory()
-                .setAbility(Abilitys.THOR)
-                .giveItem(DIAMOND_SWORD.getItem())
-                .giveItem(thorItem)
-                .fillInventoryWithSoup()
-                .playSound(Sound.NOTE_BASS_GUITAR)
-                .sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());
+        p.getInventory().clear();
+        setAbility(p, THOR);
+        p.getInventory().addItem(DIAMOND_SWORD.getItem());
+        fillInventoryWithSoup(p);
+        p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);
+        p.sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());
 
         return true;
     }
@@ -64,23 +68,23 @@ public class Thor extends KitAPI {
     public void onThor(PlayerInteractEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();
-            final GamePlayer gp = onlinePlayers.get(p.getUniqueId());
-            if (gp.getAbility() == Abilitys.THOR) {
+
+            if (getAbility(p) == Abilitys.THOR) {
                 if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
                     if (p.getItemInHand().equals(THOR_ITEM.getItem())) {
                         long actualTime = System.nanoTime();
 
-                        if (gp.isOnCooldown()) {
-                            double d = (actualTime - gp.getCooldown()) / 1e9;
+                        if (isOnCooldown(p)) {
+                            double d = (actualTime - getCooldown(p)) / 1e9;
                             int diff = this.cooldown - (int) d;
-                            gp.sendMessage(COOLDOWN_WARNING_BEFORE + diff + COOLDOWN_WARNING_AFTER);
+                            p.sendMessage(COOLDOWN_WARNING_BEFORE + diff + COOLDOWN_WARNING_AFTER);
                         } else {
                             HashSet<Material> transparent = new HashSet<>();
                             transparent.add(Material.AIR);
                             Block block = e.getPlayer().getTargetBlock(transparent, 120);
                             e.getPlayer().getWorld().strikeLightning(block.getLocation());
-                            gp.putCooldown(actualTime);
-                            new CooldownAPI(gp).runTaskLaterAsynchronously(super.plugin, this.cooldown * 20);
+                            putCooldown(p, actualTime);
+                            new CooldownAPI(p).runTaskLaterAsynchronously(super.plugin, this.cooldown * 20);
                         }
                     }
                 }
@@ -92,8 +96,7 @@ public class Thor extends KitAPI {
     public void onThorLightning(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            GamePlayer g = onlinePlayers.get(p.getUniqueId());
-            if (g.getAbility() == Abilitys.THOR && e.getCause().equals(DamageCause.LIGHTNING)) {
+            if (getAbility(p) == Abilitys.THOR && e.getCause().equals(DamageCause.LIGHTNING)) {
                 e.setCancelled(true);
             }
         }

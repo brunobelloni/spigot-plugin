@@ -1,10 +1,10 @@
 package me.brunobelloni.listeners.player;
 
-import java.util.HashMap;
-import java.util.UUID;
 import me.brunobelloni.Plugin;
-import static me.brunobelloni.controllers.PlayerController.onlinePlayersController;
-import me.brunobelloni.game.GamePlayer;
+import static me.brunobelloni.game.GamePlayer.addDeath;
+import static me.brunobelloni.game.GamePlayer.giveMenuItens;
+import static me.brunobelloni.game.GamePlayer.removeAbility;
+import static me.brunobelloni.game.GamePlayer.removeCooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,11 +16,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class DeathRespawn implements Listener {
 
     private Plugin plugin;
-    public HashMap<UUID, GamePlayer> onlinePlayers;
 
     public DeathRespawn() {
         this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
-        this.onlinePlayers = onlinePlayersController;
     }
 
     @EventHandler
@@ -28,10 +26,10 @@ public class DeathRespawn implements Listener {
         e.setDeathMessage(null);
 
         final Player p = e.getEntity();
-        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
-        gp.removeAbility();
-        gp.removeCooldown();
-        gp.addDeath();
+
+        removeAbility(p);
+        removeCooldown(p);
+        addDeath(p);
 
         new BukkitRunnable() {
             @Override
@@ -44,8 +42,7 @@ public class DeathRespawn implements Listener {
     @EventHandler
     public void PlayerRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
-        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
-        gp.clearInventory();
-        gp.giveMenuItens();
+        p.getInventory().clear();
+        giveMenuItens(p);
     }
 }

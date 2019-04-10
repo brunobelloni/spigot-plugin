@@ -1,23 +1,23 @@
 package me.brunobelloni.api.event;
 
-import me.brunobelloni.game.GamePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class SoupEvent extends Event {
 
-    private final GamePlayer gp;
+    private final Player p;
     private final PlayerInteractEvent event;
     private static final HandlerList handlers = new HandlerList();
 
-    public SoupEvent(PlayerInteractEvent event, GamePlayer gp) {
+    public SoupEvent(PlayerInteractEvent event, Player p) {
         this.event = event;
-        this.gp = gp;
+        this.p = p;
     }
 
-    public GamePlayer getGamePlayer() {
-        return gp;
+    public Player getPlayer() {
+        return p;
     }
 
     public PlayerInteractEvent getEvent() {

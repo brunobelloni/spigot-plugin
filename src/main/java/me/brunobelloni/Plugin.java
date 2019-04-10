@@ -6,8 +6,6 @@ import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
 import me.brunobelloni.api.kits.Thor;
 import me.brunobelloni.controllers.PlayerController;
-import static me.brunobelloni.controllers.PlayerController.onlinePlayersController;
-import me.brunobelloni.game.GamePlayer;
 import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
@@ -21,7 +19,6 @@ import me.brunobelloni.mysql.Database;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,19 +33,6 @@ public class Plugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-
-        }
-
-        try {
-            for (GamePlayer gp : onlinePlayersController.values()) {
-                database.update(gp);
-                onlinePlayersController.remove(gp);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 

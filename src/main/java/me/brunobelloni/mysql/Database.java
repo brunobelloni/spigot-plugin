@@ -2,24 +2,22 @@ package me.brunobelloni.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
-import me.brunobelloni.game.GamePlayer;
 import org.bukkit.entity.Player;
 
 public class Database {
 
     private static Plugin plugin;
-    private static String USER;
-    private static String PORT;
-    private static String HOST;
-    private static String PASSWORD;
-    private static String DATABASE;
-    private static String URL;
-    private static String DRIVER;
+    private static String user;
+    private static String port;
+    private static String host;
+    private static String password;
+    private static String database;
+    private static String url;
+    private static String driver;
 
     private static Connection con;
 
@@ -30,18 +28,18 @@ public class Database {
     }
 
     public static void configureDatabase() {
-        USER = plugin.getConfig().getString("database.user");
-        PORT = plugin.getConfig().getString("database.port");
-        HOST = plugin.getConfig().getString("database.host");
-        PASSWORD = plugin.getConfig().getString("database.password");
-        DATABASE = plugin.getConfig().getString("database.database");
-        URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
-        DRIVER = "com.mysql.jdbc.Driver";
+        user = plugin.getConfig().getString("database.user");
+        port = plugin.getConfig().getString("database.port");
+        host = plugin.getConfig().getString("database.host");
+        password = plugin.getConfig().getString("database.password");
+        database = plugin.getConfig().getString("database.database");
+        url = "jdbc:mysql://" + host + ":" + port + "/" + database;
+        driver = "com.mysql.jdbc.Driver";
     }
 
     public static void openConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(DRIVER);
-        con = DriverManager.getConnection(URL, USER, PASSWORD);
+        Class.forName(driver);
+        con = DriverManager.getConnection(url, user, password);
     }
 
     public static void closeConnection() throws SQLException {
@@ -103,48 +101,47 @@ public class Database {
         con.close();
     }
 
-    public void update(GamePlayer gp) throws ClassNotFoundException, SQLException {
-        UUID uuid = gp.getUUID();
-
-        String sql = "UPDATE player "
-                + "SET money='" + gp.getMoney() + "',"
-                + "kills='" + gp.getKills() + "',"
-                + "deaths='" + gp.getDeaths() + "' "
-                + "WHERE id='" + uuid + "';";
-
-        openConnection();
-        Statement stmt = con.createStatement();
-        stmt.execute(sql);
-
-        System.out.println("atualizou " + uuid);
-
-        con.close();
-    }
-
-    public GamePlayer select(Player player) throws ClassNotFoundException, SQLException {
-        UUID uuid = player.getUniqueId();
-
-        String sql = "SELECT p.money, p.kills, p.deaths "
-                + "FROM player p "
-                + "WHERE id = '" + uuid + "';";
-
-        openConnection();
-
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-
-        GamePlayer g = new GamePlayer(player);
-        while (rs.next()) {
-            g.setMoney(rs.getInt("money"));
-            g.setKills(rs.getInt("kills"));
-            g.setDeaths(rs.getInt("deaths"));
-        }
-
-        System.out.println(g.getMoney());
-        System.out.println(g.getKills());
-        System.out.println(g.getDeaths());
-
-        con.close();
-        return g;
-    }
+//    public void update(GamePlayer gp) throws ClassNotFoundException, SQLException {
+//        UUID uuid = gp.getUUID();
+//
+//        String sql = "UPDATE player "
+//                + "SET money='" + gp.getMoney() + "',"
+//                + "kills='" + gp.getKills() + "',"
+//                + "deaths='" + gp.getDeaths() + "' "
+//                + "WHERE id='" + uuid + "';";
+//
+//        openConnection();
+//        Statement stmt = con.createStatement();
+//        stmt.execute(sql);
+//
+//        System.out.println("atualizou " + uuid);
+//
+//        con.close();
+//    }
+//    public GamePlayer select(Player player) throws ClassNotFoundException, SQLException {
+//        UUID uuid = player.getUniqueId();
+//
+//        String sql = "SELECT p.money, p.kills, p.deaths "
+//                + "FROM player p "
+//                + "WHERE id = '" + uuid + "';";
+//
+//        openConnection();
+//
+//        Statement stmt = con.createStatement();
+//        ResultSet rs = stmt.executeQuery(sql);
+//
+//        GamePlayer g = new GamePlayer(player);
+//        while (rs.next()) {
+//            g.setMoney(rs.getInt("money"));
+//            g.setKills(rs.getInt("kills"));
+//            g.setDeaths(rs.getInt("deaths"));
+//        }
+//
+//        System.out.println(g.getMoney());
+//        System.out.println(g.getKills());
+//        System.out.println(g.getDeaths());
+//
+//        con.close();
+//        return g;
+//    }
 }

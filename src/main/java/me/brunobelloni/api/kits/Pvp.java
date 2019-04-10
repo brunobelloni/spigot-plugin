@@ -1,11 +1,12 @@
 package me.brunobelloni.api.kits;
 
-import me.brunobelloni.enums.Abilitys;
+import static me.brunobelloni.enums.Abilitys.PVP;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import me.brunobelloni.game.GamePlayer;
+import static me.brunobelloni.game.GamePlayer.fillInventoryWithSoup;
+import static me.brunobelloni.game.GamePlayer.setAbility;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,14 +29,13 @@ public class Pvp extends KitAPI {
         }
 
         Player p = (Player) sender;
-        GamePlayer gp = onlinePlayers.get(p.getUniqueId());
 
-        gp.clearInventory()
-                .setAbility(Abilitys.PVP)
-                .giveItem(DIAMOND_SWORD.getItem())
-                .fillInventoryWithSoup()
-                .playSound(Sound.NOTE_BASS_GUITAR)
-                .sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());
+        p.getInventory().clear();
+        setAbility(p, PVP);
+        p.getInventory().addItem(DIAMOND_SWORD.getItem());
+        fillInventoryWithSoup(p);
+        p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);
+        p.sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());
 
         return true;
     }
