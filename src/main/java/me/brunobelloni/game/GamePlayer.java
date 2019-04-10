@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 public class GamePlayer implements Comparable<GamePlayer> {
 
     private final Player player;
-    private Double money;
+    private Integer money;
     private Integer kills;
     private Integer deaths;
 
@@ -29,7 +29,7 @@ public class GamePlayer implements Comparable<GamePlayer> {
 
     public GamePlayer(Player player) {
         this.player = player;
-        this.money = 0.0;
+        this.money = 0;
         this.availableKits = new ArrayList<>();
         this.ability = Abilitys.NONE;
         this.menu = getMenu();
@@ -63,21 +63,21 @@ public class GamePlayer implements Comparable<GamePlayer> {
         return player.getUniqueId();
     }
 
-    public GamePlayer setMoney(Double money) {
+    public GamePlayer setMoney(Integer money) {
         this.money = money;
         return this;
     }
 
-    public Double getMoney() {
+    public Integer getMoney() {
         return money;
     }
 
-    public GamePlayer addMoney(Double money) {
+    public GamePlayer addMoney(Integer money) {
         this.money += money;
         return this;
     }
 
-    public GamePlayer removeMoney(Double money) {
+    public GamePlayer removeMoney(Integer money) {
         this.money -= money;
         return this;
     }
@@ -163,5 +163,13 @@ public class GamePlayer implements Comparable<GamePlayer> {
 
     public void setDeaths(Integer deaths) {
         this.deaths = deaths;
+    }
+
+    public void addDeath() {
+        this.deaths += 1;
+    }
+
+    public void addKill() {
+        this.kills += 1;
     }
 }

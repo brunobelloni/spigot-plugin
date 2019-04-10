@@ -31,6 +31,7 @@ public class DeathRespawn implements Listener {
         GamePlayer gp = onlinePlayers.get(p.getUniqueId());
         gp.removeAbility();
         gp.removeCooldown();
+        gp.addDeath();
 
         new BukkitRunnable() {
             @Override

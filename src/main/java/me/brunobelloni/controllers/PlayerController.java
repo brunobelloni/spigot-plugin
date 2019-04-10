@@ -22,17 +22,19 @@ public class PlayerController implements Listener {
     }
 
     @EventHandler
-    public GamePlayer onPlayerLogin(PlayerLoginEvent e) throws Exception {
+    public void onPlayerLogin(PlayerLoginEvent e) throws Exception {
         Player p = e.getPlayer();
 
         database.insert(p);
         GamePlayer gp = database.select(p);
-        return onlinePlayersController.put(gp.getUUID(), gp);
+        onlinePlayersController.put(gp.getUUID(), gp);
     }
 
     @EventHandler
-    public GamePlayer onPlayerQuit(PlayerQuitEvent e) {
+    public void onPlayerQuit(PlayerQuitEvent e) throws Exception {
         Player p = e.getPlayer();
-        return onlinePlayersController.remove(p.getUniqueId());
+        GamePlayer gp = onlinePlayersController.get(p.getUniqueId());
+        database.update(gp);
+        onlinePlayersController.remove(p.getUniqueId());
     }
 }
