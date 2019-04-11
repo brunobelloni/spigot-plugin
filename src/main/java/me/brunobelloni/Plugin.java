@@ -6,6 +6,8 @@ import me.brunobelloni.api.chest.KitMenu;
 import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
 import me.brunobelloni.api.kits.Thor;
+import me.brunobelloni.controllers.AbilityController;
+import me.brunobelloni.controllers.CooldownController;
 import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
@@ -55,6 +57,8 @@ public class Plugin extends JavaPlugin {
         } catch (Exception e) {
             System.out.println("[ERROR] " + e);
         } finally {
+            new CooldownController();
+            new AbilityController();
             bindCommands();
             bindEvents();
             bindKits();

@@ -17,7 +17,7 @@ import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import me.brunobelloni.game.CooldownAPI;
+import me.brunobelloni.api.cooldown.CooldownAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;

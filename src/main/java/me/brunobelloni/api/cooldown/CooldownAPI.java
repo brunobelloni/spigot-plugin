@@ -1,4 +1,4 @@
-package me.brunobelloni.game;
+package me.brunobelloni.api.cooldown;
 
 import static me.brunobelloni.controllers.CooldownController.removeCooldown;
 import org.bukkit.entity.Player;

@@ -7,9 +7,10 @@ import org.bukkit.entity.Player;
 
 public class AbilityController {
 
-    private static final HashMap<UUID, Abilitys> playersWithAbilitys = new HashMap<>();
+    private static HashMap<UUID, Abilitys> playersWithAbilitys;
 
     public AbilityController() {
+        playersWithAbilitys = new HashMap<>();
     }
 
     public static void putAbility(Player p, Abilitys ability) {
@@ -22,5 +23,9 @@ public class AbilityController {
 
     public static Abilitys getAbility(Player p) {
         return playersWithAbilitys.get(p.getUniqueId());
+    }
+
+    public static boolean hasAbility(Player p) {
+        return playersWithAbilitys.get(p.getUniqueId()) != null;
     }
 }
