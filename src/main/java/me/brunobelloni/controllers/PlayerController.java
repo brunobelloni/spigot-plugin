@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerController {
 
     private static final String insert = "INSERT IGNORE INTO player(id) VALUES(?);";
-    private static final String update = "UPDATE player SET money='?', kills='?', deaths='?' WHERE id='?';";
     private static final String select = "SELECT p.money, p.kills, p.deaths FROM player p WHERE id=?;";
 
     public PlayerController() {
@@ -35,8 +34,16 @@ public class PlayerController {
         }
     }
 
-    public static void addDeath(Player p) {
-        // this.deaths += 1;
+    public static void addDeath(Player p) throws SQLException {
+        Connection con = getHikari().getConnection();
+        String update = "SELECT addDeath(?);";
+        PreparedStatement ps = con.prepareStatement(update);
+        ps.setString(1, p.getUniqueId().toString());
+        ps.execute();
+
+        if (con != null) {
+            con.close();
+        }
     }
 
     public static void fillInventoryWithSoup(Player p) {

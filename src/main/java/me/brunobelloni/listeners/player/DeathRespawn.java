@@ -1,5 +1,6 @@
 package me.brunobelloni.listeners.player;
 
+import java.sql.SQLException;
 import me.brunobelloni.Plugin;
 import static me.brunobelloni.controllers.AbilityController.removeAbility;
 import static me.brunobelloni.controllers.CooldownController.removeCooldown;
@@ -22,7 +23,7 @@ public class DeathRespawn implements Listener {
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent e) {
+    public void onDeath(PlayerDeathEvent e) throws SQLException {
         e.setDeathMessage(null);
 
         final Player p = e.getEntity();

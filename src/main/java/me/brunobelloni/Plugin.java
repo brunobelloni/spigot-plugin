@@ -1,6 +1,7 @@
 package me.brunobelloni;
 
 import java.lang.reflect.Field;
+import java.sql.SQLException;
 import me.brunobelloni.api.chest.KitMenu;
 import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
@@ -15,6 +16,7 @@ import me.brunobelloni.listeners.player.JoinServer;
 import me.brunobelloni.listeners.player.PvpListeners;
 import me.brunobelloni.listeners.player.QuitServer;
 import me.brunobelloni.mysql.Database;
+import static me.brunobelloni.mysql.Database.closeConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -32,6 +34,14 @@ public class Plugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        System.out.println("entrou");
+        for (int i = 0; i < 10; i++) {
+            try {
+                closeConnection();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
 
     }
 

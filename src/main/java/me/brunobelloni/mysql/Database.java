@@ -16,6 +16,7 @@ public class Database {
         this.plugin = plugin;
         this.configureDatabase();
         this.createTables();
+        this.createFunctions();
     }
 
     public static HikariDataSource getHikari() {
@@ -25,7 +26,6 @@ public class Database {
     public void configureDatabase() {
         FileConfiguration config = plugin.getConfig();
         hikari = new HikariDataSource();
-
         hikari.setMaximumPoolSize(10);
 
         hikari.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
@@ -46,15 +46,13 @@ public class Database {
         hikari.addDataSourceProperty("cacheServerConfiguration", config.getBoolean("database.cacheServerConfiguration"));
         hikari.addDataSourceProperty("elideSetAutoCommits", config.getBoolean("database.elideSetAutoCommits"));
         hikari.addDataSourceProperty("maintainTimeStats", config.getBoolean("database.maintainTimeStats"));
-
-        System.out.println("[MySQL] Configurado");
     }
 
-    public void closeConnection() throws SQLException {
+    public static void closeConnection() throws SQLException {
         hikari.close();
     }
 
-    public void createTables() throws SQLException, ClassNotFoundException {
+    public void createTables() throws SQLException {
         Connection con = hikari.getConnection();
         Statement stmt = con.createStatement();
 
@@ -93,6 +91,24 @@ public class Database {
                 + "FOREIGN KEY(player) REFERENCES player(id),"
                 + "FOREIGN KEY(kit)    REFERENCES kit(id)"
                 + ");";
+        stmt.execute(sql);
+    }
+
+    private void createFunctions() throws SQLException {
+        Connection con = hikari.getConnection();
+        Statement stmt = con.createStatement();
+
+        String sql = "CREATE OR REPLACE FUNCTION addDeath(uuid VARCHAR(36))\n"
+                + "    RETURNS VARCHAR(36)\n"
+                + "    DETERMINISTIC\n"
+                + "BEGIN\n"
+                + "    DECLARE p_deaths INTEGER;\n"
+                + "\n"
+                + "    SELECT deaths FROM player WHERE id=uuid INTO p_deaths;\n"
+                + "    UPDATE player SET deaths=p_deaths+1 WHERE id=uuid;\n"
+                + "    RETURN uuid;"
+                + "END";
+
         stmt.execute(sql);
     }
 }
