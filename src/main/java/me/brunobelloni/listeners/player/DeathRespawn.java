@@ -1,10 +1,10 @@
 package me.brunobelloni.listeners.player;
 
 import me.brunobelloni.Plugin;
-import static me.brunobelloni.game.GamePlayer.addDeath;
-import static me.brunobelloni.game.GamePlayer.giveMenuItens;
-import static me.brunobelloni.game.GamePlayer.removeAbility;
-import static me.brunobelloni.game.GamePlayer.removeCooldown;
+import static me.brunobelloni.controllers.AbilityController.removeAbility;
+import static me.brunobelloni.controllers.CooldownController.removeCooldown;
+import static me.brunobelloni.controllers.PlayerController.addDeath;
+import static me.brunobelloni.controllers.PlayerController.giveMenuItens;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

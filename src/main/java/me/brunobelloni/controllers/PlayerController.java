@@ -1,36 +1,56 @@
 package me.brunobelloni.controllers;
 
-import me.brunobelloni.Plugin;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import me.brunobelloni.enums.CustomItem;
+import static me.brunobelloni.mysql.Database.getHikari;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
-public class PlayerController implements Listener {
+public class PlayerController {
 
-    private Plugin plugin;
-//    public static HashMap<UUID, GamePlayer> onlinePlayersController;
+    private static final String insert = "INSERT IGNORE INTO player(id) VALUES(?);";
+    private static final String update = "UPDATE player SET money='?', kills='?', deaths='?' WHERE id='?';";
+    private static final String select = "SELECT p.money, p.kills, p.deaths FROM player p WHERE id=?;";
 
-    public PlayerController(Plugin plugin) {
-        this.plugin = plugin;
-//        onlinePlayersController = new HashMap<>();
+    public PlayerController() {
     }
 
-    @EventHandler
-    public void onPlayerLogin(PlayerLoginEvent e) throws Exception {
-        Player p = e.getPlayer();
+    public static ArrayList<String> getStats(Player p) {
+        ArrayList<String> stats = new ArrayList<>();
 
-//        database.insert(p);
-//        GamePlayer gp = database.select(p);
-//        onlinePlayersController.put(gp.getUUID(), gp);
+        return stats;
     }
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent e) throws Exception {
-        Player p = e.getPlayer();
-//        GamePlayer gp = onlinePlayersController.get(p.getUniqueId());
-//        database.update(gp);
-//        onlinePlayersController.remove(p.getUniqueId());
+    public static void asyncInsertPlayer(Player p) throws SQLException {
+        Connection con = getHikari().getConnection();
+        PreparedStatement ps = con.prepareStatement(insert);
+        ps.setString(1, p.getUniqueId().toString());
+        ps.execute();
+
+        if (con != null) {
+            con.close();
+        }
+    }
+
+    public static void addDeath(Player p) {
+        // this.deaths += 1;
+    }
+
+    public static void fillInventoryWithSoup(Player p) {
+        ItemStack[] inventory = p.getInventory().getContents();
+        ItemStack soup = CustomItem.SOUP.getItem();
+
+        for (ItemStack item : inventory) {
+            if (item == null) {
+                p.getInventory().addItem(soup);
+            }
+        }
+    }
+
+    public static void giveMenuItens(Player p) {
+        p.sendMessage("Implementar os itens iniciais!");
     }
 }

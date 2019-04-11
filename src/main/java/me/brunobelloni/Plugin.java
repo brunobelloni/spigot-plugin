@@ -5,7 +5,6 @@ import me.brunobelloni.api.chest.KitMenu;
 import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
 import me.brunobelloni.api.kits.Thor;
-import me.brunobelloni.controllers.PlayerController;
 import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
@@ -41,8 +40,8 @@ public class Plugin extends JavaPlugin {
         loadConfiguration();
 
         try {
-            database = new Database(this);
             setCommandRegister();
+            database = new Database(this);
         } catch (Exception e) {
             System.out.println("[ERROR] " + e);
         } finally {
@@ -58,8 +57,6 @@ public class Plugin extends JavaPlugin {
     }
 
     private void bindEvents() {
-        this.pluginManager.registerEvents(new PlayerController(this), this);
-
         this.pluginManager.registerEvents(new EventAPI(), this);
         this.pluginManager.registerEvents(new ItemDrop(), this);
         this.pluginManager.registerEvents(new ChatFormat(), this);

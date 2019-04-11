@@ -1,6 +1,6 @@
 package me.brunobelloni.game;
 
-import static me.brunobelloni.game.GamePlayer.removeCooldown;
+import static me.brunobelloni.controllers.CooldownController.removeCooldown;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 

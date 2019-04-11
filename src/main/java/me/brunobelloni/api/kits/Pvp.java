@@ -1,12 +1,12 @@
 package me.brunobelloni.api.kits;
 
+import static me.brunobelloni.controllers.AbilityController.putAbility;
+import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup;
 import static me.brunobelloni.enums.Abilitys.PVP;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import static me.brunobelloni.game.GamePlayer.fillInventoryWithSoup;
-import static me.brunobelloni.game.GamePlayer.setAbility;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,7 +31,7 @@ public class Pvp extends KitAPI {
         Player p = (Player) sender;
 
         p.getInventory().clear();
-        setAbility(p, PVP);
+        putAbility(p, PVP);
         p.getInventory().addItem(DIAMOND_SWORD.getItem());
         fillInventoryWithSoup(p);
         p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);

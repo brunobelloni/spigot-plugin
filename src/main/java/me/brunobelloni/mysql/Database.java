@@ -1,57 +1,65 @@
 package me.brunobelloni.mysql;
 
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 import me.brunobelloni.Plugin;
-import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class Database {
 
-    private static Plugin plugin;
-    private static String user;
-    private static String port;
-    private static String host;
-    private static String password;
-    private static String database;
-    private static String url;
-    private static String driver;
-
-    private static Connection con;
+    private Plugin plugin;
+    public static HikariDataSource hikari;
 
     public Database(Plugin plugin) throws ClassNotFoundException, SQLException {
         this.plugin = plugin;
-        configureDatabase();
-        createGamePlayers();
+        this.configureDatabase();
+        this.createTables();
     }
 
-    public static void configureDatabase() {
-        user = plugin.getConfig().getString("database.user");
-        port = plugin.getConfig().getString("database.port");
-        host = plugin.getConfig().getString("database.host");
-        password = plugin.getConfig().getString("database.password");
-        database = plugin.getConfig().getString("database.database");
-        url = "jdbc:mysql://" + host + ":" + port + "/" + database;
-        driver = "com.mysql.jdbc.Driver";
+    public static HikariDataSource getHikari() {
+        return hikari;
     }
 
-    public static void openConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(driver);
-        con = DriverManager.getConnection(url, user, password);
+    public void configureDatabase() {
+        FileConfiguration config = plugin.getConfig();
+        hikari = new HikariDataSource();
+
+        hikari.setMaximumPoolSize(10);
+
+        hikari.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+        hikari.addDataSourceProperty("port", config.getString("database.port"));
+        hikari.addDataSourceProperty("user", config.getString("database.user"));
+        hikari.addDataSourceProperty("serverName", config.getString("database.host"));
+        hikari.addDataSourceProperty("password", config.getString("database.password"));
+        hikari.addDataSourceProperty("databaseName", config.getString("database.database"));
+
+        hikari.addDataSourceProperty("cachePrepStmts", config.getBoolean("database.cachePrepStmts"));
+        hikari.addDataSourceProperty("cachePrepStmts", config.getBoolean("database.cachePrepStmts"));
+        hikari.addDataSourceProperty("prepStmtCacheSize", config.getInt("database.prepStmtCacheSize"));
+        hikari.addDataSourceProperty("prepStmtCacheSqlLimit", config.getInt("database.prepStmtCacheSqlLimit"));
+        hikari.addDataSourceProperty("useServerPrepStmts", config.getBoolean("database.useServerPrepStmts"));
+        hikari.addDataSourceProperty("useLocalSessionState", config.getBoolean("database.useLocalSessionState"));
+        hikari.addDataSourceProperty("rewriteBatchedStatements", config.getBoolean("database.rewriteBatchedStatements"));
+        hikari.addDataSourceProperty("cacheResultSetMetadata", config.getBoolean("database.cacheResultSetMetadata"));
+        hikari.addDataSourceProperty("cacheServerConfiguration", config.getBoolean("database.cacheServerConfiguration"));
+        hikari.addDataSourceProperty("elideSetAutoCommits", config.getBoolean("database.elideSetAutoCommits"));
+        hikari.addDataSourceProperty("maintainTimeStats", config.getBoolean("database.maintainTimeStats"));
+
+        System.out.println("[MySQL] Configurado");
     }
 
-    public static void closeConnection() throws SQLException {
-        con.close();
+    public void closeConnection() throws SQLException {
+        hikari.close();
     }
 
-    public static void createGamePlayers() throws SQLException, ClassNotFoundException {
-        openConnection();
+    public void createTables() throws SQLException, ClassNotFoundException {
+        Connection con = hikari.getConnection();
         Statement stmt = con.createStatement();
 
         String sql = "CREATE TABLE IF NOT EXISTS player ("
-                + "id     VARCHAR(40) NOT NULL,"
+                + "id     VARCHAR(36) NOT NULL,"
                 + "money  INTEGER     NOT NULL DEFAULT 0,"
                 + "kills  INTEGER     NOT NULL DEFAULT 0,"
                 + "deaths INTEGER     NOT NULL DEFAULT 0,"
@@ -60,9 +68,9 @@ public class Database {
         stmt.execute(sql);
 
         sql = "CREATE TABLE IF NOT EXISTS bans ("
-                + "player  VARCHAR(40) NOT NULL,"
-                + "banned_by   VARCHAR(40) NOT NULL,"
-                + "reason      VARCHAR(50) NOT NULL,"
+                + "player  VARCHAR(36) NOT NULL,"
+                + "banned_by   VARCHAR(36) NOT NULL,"
+                + "reason      VARCHAR(40) NOT NULL,"
                 + "banned_at   DATE        NOT NULL,"
                 + "unbanned_at DATE,"
                 + "PRIMARY KEY(player),"
@@ -79,69 +87,12 @@ public class Database {
         stmt.execute(sql);
 
         sql = "CREATE TABLE IF NOT EXISTS player_kit ("
-                + "player  VARCHAR(40) NOT NULL,"
+                + "player  VARCHAR(36) NOT NULL,"
                 + "kit     SERIAL     NOT NULL,"
                 + "PRIMARY KEY(player, kit),"
                 + "FOREIGN KEY(player) REFERENCES player(id),"
                 + "FOREIGN KEY(kit)    REFERENCES kit(id)"
                 + ");";
         stmt.execute(sql);
-        closeConnection();
     }
-
-    public void insert(Player player) throws ClassNotFoundException, SQLException {
-        UUID uuid = player.getUniqueId();
-
-        String sql = "INSERT IGNORE INTO player(id) VALUES('" + uuid + "');";
-
-        openConnection();
-        Statement stmt = con.createStatement();
-        stmt.execute(sql);
-
-        con.close();
-    }
-
-//    public void update(GamePlayer gp) throws ClassNotFoundException, SQLException {
-//        UUID uuid = gp.getUUID();
-//
-//        String sql = "UPDATE player "
-//                + "SET money='" + gp.getMoney() + "',"
-//                + "kills='" + gp.getKills() + "',"
-//                + "deaths='" + gp.getDeaths() + "' "
-//                + "WHERE id='" + uuid + "';";
-//
-//        openConnection();
-//        Statement stmt = con.createStatement();
-//        stmt.execute(sql);
-//
-//        System.out.println("atualizou " + uuid);
-//
-//        con.close();
-//    }
-//    public GamePlayer select(Player player) throws ClassNotFoundException, SQLException {
-//        UUID uuid = player.getUniqueId();
-//
-//        String sql = "SELECT p.money, p.kills, p.deaths "
-//                + "FROM player p "
-//                + "WHERE id = '" + uuid + "';";
-//
-//        openConnection();
-//
-//        Statement stmt = con.createStatement();
-//        ResultSet rs = stmt.executeQuery(sql);
-//
-//        GamePlayer g = new GamePlayer(player);
-//        while (rs.next()) {
-//            g.setMoney(rs.getInt("money"));
-//            g.setKills(rs.getInt("kills"));
-//            g.setDeaths(rs.getInt("deaths"));
-//        }
-//
-//        System.out.println(g.getMoney());
-//        System.out.println(g.getKills());
-//        System.out.println(g.getDeaths());
-//
-//        con.close();
-//        return g;
-//    }
 }

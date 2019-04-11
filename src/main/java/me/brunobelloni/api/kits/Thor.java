@@ -1,6 +1,12 @@
 package me.brunobelloni.api.kits;
 
 import java.util.HashSet;
+import static me.brunobelloni.controllers.AbilityController.getAbility;
+import static me.brunobelloni.controllers.AbilityController.putAbility;
+import static me.brunobelloni.controllers.CooldownController.getCooldown;
+import static me.brunobelloni.controllers.CooldownController.isOnCooldown;
+import static me.brunobelloni.controllers.CooldownController.putCooldown;
+import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup;
 import me.brunobelloni.enums.Abilitys;
 import static me.brunobelloni.enums.Abilitys.THOR;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
@@ -12,12 +18,6 @@ import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import me.brunobelloni.game.CooldownAPI;
-import static me.brunobelloni.game.GamePlayer.fillInventoryWithSoup;
-import static me.brunobelloni.game.GamePlayer.getAbility;
-import static me.brunobelloni.game.GamePlayer.getCooldown;
-import static me.brunobelloni.game.GamePlayer.isOnCooldown;
-import static me.brunobelloni.game.GamePlayer.putCooldown;
-import static me.brunobelloni.game.GamePlayer.setAbility;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -55,7 +55,7 @@ public class Thor extends KitAPI {
         Player p = (Player) sender;
 
         p.getInventory().clear();
-        setAbility(p, THOR);
+        putAbility(p, THOR);
         p.getInventory().addItem(DIAMOND_SWORD.getItem());
         fillInventoryWithSoup(p);
         p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);
