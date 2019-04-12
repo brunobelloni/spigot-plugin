@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.UUID;
 import me.brunobelloni.Plugin;
 import me.brunobelloni.api.chest.ChestAPI;
-import me.brunobelloni.api.chest.ChestAPI.onClick;
 import me.brunobelloni.api.kits.ItemMenu;
 import static me.brunobelloni.enums.Messages.KIT_CHEST_NAME;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class KitMenuController {
 
@@ -30,27 +30,27 @@ public class KitMenuController {
     public static void addMenuOnPlayerLogin(final Player p, final boolean open) {
         final ChestAPI chest = new ChestAPI(KIT_CHEST_NAME, 6);
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+        BukkitScheduler scheduler = plugin.getServer().getScheduler();
+
+        new BukkitRunnable() {
+
             @Override
             public void run() {
-                int i = 0;
                 for (final ItemMenu itemMenu : kitList) {
-                    chest.addButton(i, itemMenu.item, new onClick() {
-                        @Override
-                        public boolean click(Player clicker) {
-                            clicker.performCommand(itemMenu.name);
-                            return true;
-                        }
-                    });
+                    chest.addButton(
+                            kitList.indexOf(itemMenu),
+                            itemMenu.item,
+                            itemMenu.click
+                    );
                     System.out.println(itemMenu.name + " inserido para " + p.getName());
-                    i++;
                 }
                 playersMenu.put(p.getUniqueId(), chest);
                 if (open) {
                     chest.open(p);
                 }
             }
-        });
+
+        }.runTaskAsynchronously(KitMenuController.plugin);
     }
 
     public static void openKitMenu(Player p) {
