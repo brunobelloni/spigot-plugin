@@ -1,6 +1,7 @@
 package me.brunobelloni.listeners.player;
 
 import java.sql.SQLException;
+import static me.brunobelloni.controllers.KitMenuController.addMenuOnPlayerLogin;
 import static me.brunobelloni.controllers.PlayerController.asyncInsertPlayer;
 import static me.brunobelloni.controllers.PlayerController.giveMenuItens;
 import org.bukkit.entity.Player;
@@ -17,6 +18,8 @@ public class JoinServer implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         Player p = e.getPlayer();
+
+        addMenuOnPlayerLogin(p, false);
 
         try {
             asyncInsertPlayer(p);

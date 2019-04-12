@@ -1,6 +1,7 @@
 package me.brunobelloni.api.kits;
 
 import java.util.HashSet;
+import me.brunobelloni.schedualar.CooldownAPI;
 import static me.brunobelloni.controllers.AbilityController.getAbility;
 import static me.brunobelloni.controllers.AbilityController.putAbility;
 import static me.brunobelloni.controllers.CooldownController.getCooldown;
@@ -11,13 +12,13 @@ import me.brunobelloni.enums.Abilitys;
 import static me.brunobelloni.enums.Abilitys.THOR;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
+import static me.brunobelloni.enums.CustomItem.IRON_SWORD;
 import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import me.brunobelloni.api.cooldown.CooldownAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -56,7 +57,8 @@ public class Thor extends KitAPI {
 
         p.getInventory().clear();
         putAbility(p, THOR);
-        p.getInventory().addItem(DIAMOND_SWORD.getItem());
+        p.getInventory().addItem(IRON_SWORD.getItem());
+        p.getInventory().addItem(thorItem);
         fillInventoryWithSoup(p);
         p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);
         p.sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());
@@ -71,7 +73,7 @@ public class Thor extends KitAPI {
 
             if (getAbility(p) == Abilitys.THOR) {
                 if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-                    if (p.getItemInHand().equals(THOR_ITEM.getItem())) {
+                    if (p.getItemInHand().equals(thorItem)) {
                         long actualTime = System.nanoTime();
 
                         if (isOnCooldown(p)) {

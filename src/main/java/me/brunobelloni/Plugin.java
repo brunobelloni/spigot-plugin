@@ -2,12 +2,12 @@ package me.brunobelloni;
 
 import java.lang.reflect.Field;
 import java.sql.SQLException;
-import me.brunobelloni.api.chest.KitMenu;
 import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
 import me.brunobelloni.api.kits.Thor;
 import me.brunobelloni.controllers.AbilityController;
 import me.brunobelloni.controllers.CooldownController;
+import me.brunobelloni.controllers.KitMenuController;
 import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
@@ -36,7 +36,6 @@ public class Plugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        System.out.println("entrou");
         for (int i = 0; i < 10; i++) {
             try {
                 closeConnection();
@@ -44,14 +43,12 @@ public class Plugin extends JavaPlugin {
                 ex.printStackTrace();
             }
         }
-
     }
 
     @Override
     public void onEnable() {
-        loadConfiguration();
-
         try {
+            loadConfiguration();
             setCommandRegister();
             database = new Database(this);
         } catch (Exception e) {
@@ -59,6 +56,7 @@ public class Plugin extends JavaPlugin {
         } finally {
             new CooldownController();
             new AbilityController();
+            new KitMenuController(this);
             bindCommands();
             bindEvents();
             bindKits();
@@ -81,8 +79,6 @@ public class Plugin extends JavaPlugin {
         this.pluginManager.registerEvents(new DeathRespawn(), this);
         this.pluginManager.registerEvents(new UtilListeners(), this);
         this.pluginManager.registerEvents(new CmdPreprocess(), this);
-
-        this.pluginManager.registerEvents(new KitMenu(), this);
     }
 
     private void setCommandRegister() throws Exception {

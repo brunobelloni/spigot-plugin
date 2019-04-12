@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import me.brunobelloni.enums.CustomItem;
+import static me.brunobelloni.enums.CustomItem.KIT_ITEM;
 import static me.brunobelloni.mysql.Database.getHikari;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -58,6 +59,6 @@ public class PlayerController {
     }
 
     public static void giveMenuItens(Player p) {
-        p.sendMessage("Implementar os itens iniciais!");
+        p.getInventory().addItem(KIT_ITEM.getItem());
     }
 }
