@@ -1,7 +1,7 @@
 package me.brunobelloni.listeners;
 
-import static me.brunobelloni.controllers.KitMenuController.openKitMenu;
-import static me.brunobelloni.enums.CustomItem.KIT_ITEM;
+import static me.brunobelloni.controllers.MenuController.openKitMenu;
+import static me.brunobelloni.enums.Item.KIT_ITEM;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

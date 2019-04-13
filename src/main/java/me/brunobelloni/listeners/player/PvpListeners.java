@@ -1,7 +1,7 @@
 package me.brunobelloni.listeners.player;
 
 import me.brunobelloni.api.event.SoupEvent;
-import static me.brunobelloni.enums.CustomItem.BOWL;
+import static me.brunobelloni.enums.Item.BOWL;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

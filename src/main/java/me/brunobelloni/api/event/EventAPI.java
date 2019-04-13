@@ -1,7 +1,7 @@
 package me.brunobelloni.api.event;
 
 import me.brunobelloni.Plugin;
-import static me.brunobelloni.enums.CustomItem.SOUP;
+import static me.brunobelloni.enums.Item.SOUP;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

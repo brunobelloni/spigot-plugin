@@ -10,10 +10,10 @@ import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup
 import me.brunobelloni.enums.Abilitys;
 import static me.brunobelloni.enums.Abilitys.THOR;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
-import static me.brunobelloni.enums.CustomItem.IRON_SWORD;
-import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
-import static me.brunobelloni.enums.CustomMenuItem.DONT_HAS_THOR;
-import static me.brunobelloni.enums.CustomMenuItem.HAS_THOR;
+import static me.brunobelloni.enums.Item.IRON_SWORD;
+import static me.brunobelloni.enums.Item.THOR_ITEM;
+import static me.brunobelloni.enums.MenuItem.DONT_HAS_THOR;
+import static me.brunobelloni.enums.MenuItem.HAS_THOR;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;

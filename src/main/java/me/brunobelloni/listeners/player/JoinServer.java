@@ -1,7 +1,7 @@
 package me.brunobelloni.listeners.player;
 
 import java.sql.SQLException;
-import static me.brunobelloni.controllers.KitMenuController.addMenuOnPlayerLogin;
+import static me.brunobelloni.controllers.MenuController.addMenuOnPlayerLogin;
 import static me.brunobelloni.controllers.PlayerController.asyncInsertPlayer;
 import static me.brunobelloni.controllers.PlayerController.giveMenuItens;
 import org.bukkit.entity.Player;

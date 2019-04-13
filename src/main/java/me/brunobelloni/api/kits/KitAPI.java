@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import me.brunobelloni.Plugin;
 import me.brunobelloni.api.chest.ChestAPI;
 import me.brunobelloni.api.chest.ChestAPI.onClick;
-import static me.brunobelloni.controllers.KitMenuController.addKitList;
+import static me.brunobelloni.controllers.MenuController.addKit;
 import org.bukkit.Bukkit;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public abstract class KitAPI extends BukkitCommand implements Listener {
         this.description = MessageFormat.format("Escolha o kit {0}", name);
         this.usageMessage = MessageFormat.format("/{0}", name);
         this.setPermission(MessageFormat.format("kit.{0}", name));
-        addKitList(this);
+        addKit(this);
         Bukkit.getPluginManager().registerEvents(this, instance);
     }
 

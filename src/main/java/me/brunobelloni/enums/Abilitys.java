@@ -4,7 +4,8 @@ public enum Abilitys {
 
     NONE("Nenhum"),
     PVP("Pvp"),
-    THOR("Thor");
+    THOR("Thor"),
+    SWITCHER("Switcher");
 
     private String name;
 

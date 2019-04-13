@@ -36,6 +36,10 @@ public class ChestAPI implements Listener {
         return this;
     }
 
+    public ChestAPI addButton(int position, ItemStack item) {
+        return addButton(position, item, null);
+    }
+
     public ChestAPI addButton(int position, ItemStack item, onClick click) {
         this.inventory.setItem(position, item);
         this.click[position] = click;
@@ -54,9 +58,17 @@ public class ChestAPI implements Listener {
                 return;
             }
 
+            if (click[e.getSlot()] == null) {
+                return;
+            }
+
             click[e.getSlot()].click(p);
             p.getOpenInventory().close();
         }
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public interface onClick {

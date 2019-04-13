@@ -3,10 +3,11 @@ package me.brunobelloni;
 import java.lang.reflect.Field;
 import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
+import me.brunobelloni.api.kits.Switcher;
 import me.brunobelloni.api.kits.Thor;
 import me.brunobelloni.controllers.AbilityController;
 import me.brunobelloni.controllers.CooldownController;
-import me.brunobelloni.controllers.KitMenuController;
+import me.brunobelloni.controllers.MenuController;
 import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
@@ -47,7 +48,7 @@ public class Plugin extends JavaPlugin {
         } finally {
             new CooldownController();
             new AbilityController();
-            new KitMenuController(this);
+            new MenuController(this);
             bindCommands();
             bindEvents();
             bindKits();
@@ -84,5 +85,6 @@ public class Plugin extends JavaPlugin {
     private void bindKits() {
         this.commandMap.register("pvp", new Pvp("pvp"));
         this.commandMap.register("thor", new Thor("thor"));
+        this.commandMap.register("switcher", new Switcher("switcher"));
     }
 }
