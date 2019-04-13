@@ -4,6 +4,8 @@ import static me.brunobelloni.controllers.AbilityController.putAbility;
 import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup;
 import static me.brunobelloni.enums.Abilitys.PVP;
 import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
+import static me.brunobelloni.enums.CustomMenuItem.DONT_HAS_PVP;
+import static me.brunobelloni.enums.CustomMenuItem.HAS_PVP;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
@@ -14,7 +16,9 @@ import org.bukkit.entity.Player;
 public class Pvp extends KitAPI {
 
     public Pvp(String name) {
-        super(name, DIAMOND_SWORD.getItem());
+        super(name);
+        setItemMenu(HAS_PVP.getItem());
+        setDontItemMenu(DONT_HAS_PVP.getItem());
     }
 
     @Override

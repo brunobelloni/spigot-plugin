@@ -11,10 +11,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class EventAPI implements Listener {
 
-    protected Plugin plugin;
+    protected Plugin instance;
 
     public EventAPI() {
-        this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
+        this.instance = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
     }
 
     @EventHandler

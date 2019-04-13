@@ -17,10 +17,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class ItemDrop implements Listener {
 
-    private Plugin plugin;
+    private Plugin instance;
 
     public ItemDrop() {
-        this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
+        this.instance = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
     }
 
     @EventHandler
@@ -36,7 +36,7 @@ public class ItemDrop implements Listener {
                 world.playEffect(loc, Effect.SMOKE, 10);
                 world.playSound(loc, Sound.LAVA_POP, 1.0F, 1.0F);
             }
-        }.runTaskLater(plugin, 5 * 20);
+        }.runTaskLater(instance, 5 * 20);
     }
 
     @EventHandler

@@ -61,6 +61,6 @@ public class ChestAPI implements Listener {
 
     public interface onClick {
 
-        public abstract boolean click(Player clicker);
+        public abstract void click(Player clicker);
     }
 }

@@ -16,10 +16,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class DeathRespawn implements Listener {
 
-    private Plugin plugin;
+    private Plugin instance;
 
     public DeathRespawn() {
-        this.plugin = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
+        this.instance = (Plugin) Bukkit.getPluginManager().getPlugins()[0];
     }
 
     @EventHandler
@@ -37,7 +37,7 @@ public class DeathRespawn implements Listener {
             public void run() {
                 p.spigot().respawn();
             }
-        }.runTaskLater(plugin, 1);
+        }.runTaskLater(instance, 1);
     }
 
     @EventHandler

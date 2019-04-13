@@ -9,11 +9,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Database {
 
-    private Plugin plugin;
+    private Plugin instance;
     public static HikariDataSource hikari;
 
     public Database(Plugin plugin) throws ClassNotFoundException, SQLException {
-        this.plugin = plugin;
+        this.instance = instance;
         this.configureDatabase();
         this.createTables();
         this.createFunctions();
@@ -24,7 +24,7 @@ public class Database {
     }
 
     public void configureDatabase() {
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = instance.getConfig();
         hikari = new HikariDataSource();
         hikari.setMaximumPoolSize(10);
 

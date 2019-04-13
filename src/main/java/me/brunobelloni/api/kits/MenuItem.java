@@ -1,17 +1,16 @@
 package me.brunobelloni.api.kits;
 
 import me.brunobelloni.api.chest.ChestAPI.onClick;
-import org.bukkit.inventory.ItemStack;
 
-public class ItemMenu {
+public class MenuItem {
 
-    public ItemStack item;
+    public KitAPI kit;
     public String name;
     public String permission;
     public onClick click;
 
-    public ItemMenu(ItemStack item, String name, String permission, onClick click) {
-        this.item = item;
+    public MenuItem(KitAPI kit, String name, String permission, onClick click) {
+        this.kit = kit;
         this.name = name;
         this.permission = permission;
         this.click = click;

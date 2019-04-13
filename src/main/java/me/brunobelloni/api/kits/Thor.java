@@ -1,7 +1,6 @@
 package me.brunobelloni.api.kits;
 
 import java.util.HashSet;
-import me.brunobelloni.schedualar.CooldownAPI;
 import static me.brunobelloni.controllers.AbilityController.getAbility;
 import static me.brunobelloni.controllers.AbilityController.putAbility;
 import static me.brunobelloni.controllers.CooldownController.getCooldown;
@@ -11,14 +10,16 @@ import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup
 import me.brunobelloni.enums.Abilitys;
 import static me.brunobelloni.enums.Abilitys.THOR;
 import static me.brunobelloni.enums.Cooldown.THOR_COOLDOWN;
-import static me.brunobelloni.enums.CustomItem.DIAMOND_SWORD;
 import static me.brunobelloni.enums.CustomItem.IRON_SWORD;
 import static me.brunobelloni.enums.CustomItem.THOR_ITEM;
+import static me.brunobelloni.enums.CustomMenuItem.DONT_HAS_THOR;
+import static me.brunobelloni.enums.CustomMenuItem.HAS_THOR;
 import me.brunobelloni.enums.Messages;
 import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
 import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
+import me.brunobelloni.schedualar.CooldownAPI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -33,12 +34,13 @@ import org.bukkit.inventory.ItemStack;
 
 public class Thor extends KitAPI {
 
-    private ItemStack thorItem;
-    private Integer cooldown;
+    private final ItemStack thorItem;
 
     public Thor(String name) {
-        super(name, DIAMOND_SWORD.getItem());
-        this.cooldown = THOR_COOLDOWN;
+        super(name);
+        setItemMenu(HAS_THOR.getItem());
+        setDontItemMenu(DONT_HAS_THOR.getItem());
+        setKitCooldown(THOR_COOLDOWN);
         this.thorItem = THOR_ITEM.getItem();
     }
 
@@ -70,24 +72,21 @@ public class Thor extends KitAPI {
     public void onThor(PlayerInteractEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();
+            if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                if (getAbility(p) == Abilitys.THOR && p.getItemInHand().equals(thorItem)) {
+                    long actualTime = System.nanoTime();
 
-            if (getAbility(p) == Abilitys.THOR) {
-                if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-                    if (p.getItemInHand().equals(thorItem)) {
-                        long actualTime = System.nanoTime();
-
-                        if (isOnCooldown(p)) {
-                            double d = (actualTime - getCooldown(p)) / 1e9;
-                            int diff = this.cooldown - (int) d;
-                            p.sendMessage(COOLDOWN_WARNING_BEFORE + diff + COOLDOWN_WARNING_AFTER);
-                        } else {
-                            HashSet<Material> transparent = new HashSet<>();
-                            transparent.add(Material.AIR);
-                            Block block = e.getPlayer().getTargetBlock(transparent, 120);
-                            e.getPlayer().getWorld().strikeLightning(block.getLocation());
-                            putCooldown(p, actualTime);
-                            new CooldownAPI(p).runTaskLaterAsynchronously(super.plugin, this.cooldown * 20);
-                        }
+                    if (isOnCooldown(p)) {
+                        double d = (actualTime - getCooldown(p)) / 1e9;
+                        int diff = super.getKitCooldown() - (int) d;
+                        p.sendMessage(COOLDOWN_WARNING_BEFORE + diff + COOLDOWN_WARNING_AFTER);
+                    } else {
+                        HashSet<Material> transparent = new HashSet<>();
+                        transparent.add(Material.AIR);
+                        Block block = e.getPlayer().getTargetBlock(transparent, 120);
+                        e.getPlayer().getWorld().strikeLightning(block.getLocation());
+                        putCooldown(p, actualTime);
+                        new CooldownAPI(p).runTaskLaterAsynchronously(super.getInstance(), super.getKitCooldown() * 20);
                     }
                 }
             }
