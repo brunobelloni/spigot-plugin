@@ -34,7 +34,9 @@ public class KitMenuController {
             public void run() {
                 for (final KitAPI kit : kitList) {
 
-                    if (p.hasPermission("")) {
+                    System.out.println(kit.getPermission());
+
+                    if (p.hasPermission(kit.getPermission())) {
 
                     } else {
 

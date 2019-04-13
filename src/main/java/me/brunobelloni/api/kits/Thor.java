@@ -38,10 +38,10 @@ public class Thor extends KitAPI {
 
     public Thor(String name) {
         super(name);
-        setItemMenu(HAS_THOR.getItem());
-        setDontItemMenu(DONT_HAS_THOR.getItem());
+        setItemMenu(HAS_THOR);
+        setDontItemMenu(DONT_HAS_THOR);
         setKitCooldown(THOR_COOLDOWN);
-        this.thorItem = THOR_ITEM.getItem();
+        this.thorItem = THOR_ITEM;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Thor extends KitAPI {
 
         p.getInventory().clear();
         putAbility(p, THOR);
-        p.getInventory().addItem(IRON_SWORD.getItem());
+        p.getInventory().addItem(IRON_SWORD);
         p.getInventory().addItem(thorItem);
         fillInventoryWithSoup(p);
         p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);

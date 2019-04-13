@@ -17,6 +17,6 @@ public class PvpListeners implements Listener {
         Player p = e.getPlayer();
         p.setHealth(p.getHealth() + 7.0D > p.getMaxHealth() ? p.getMaxHealth() : p.getHealth() + 7.0D);
         p.playSound(p.getLocation(), Sound.EAT, 1.0F, 1.0F);
-        p.setItemInHand(BOWL.getItem());
+        p.setItemInHand(BOWL);
     }
 }

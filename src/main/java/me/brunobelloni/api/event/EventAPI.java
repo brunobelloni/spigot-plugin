@@ -21,7 +21,7 @@ public class EventAPI implements Listener {
     public void soupUseEvent(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            if (p.getItemInHand().equals(SOUP.getItem())) {
+            if (p.getItemInHand().equals(SOUP)) {
                 if (p.getHealth() != 20.0D && p.getHealth() + 1.0D <= 20.0D) {
                     e.setCancelled(true);
                     Bukkit.getPluginManager().callEvent(new SoupEvent(e, p));

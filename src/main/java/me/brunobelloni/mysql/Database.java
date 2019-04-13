@@ -12,7 +12,7 @@ public class Database {
     private Plugin instance;
     public static HikariDataSource hikari;
 
-    public Database(Plugin plugin) throws ClassNotFoundException, SQLException {
+    public Database(Plugin instance) throws ClassNotFoundException, SQLException {
         this.instance = instance;
         this.configureDatabase();
         this.createTables();

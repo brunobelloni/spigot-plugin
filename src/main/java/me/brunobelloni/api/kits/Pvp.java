@@ -17,8 +17,8 @@ public class Pvp extends KitAPI {
 
     public Pvp(String name) {
         super(name);
-        setItemMenu(HAS_PVP.getItem());
-        setDontItemMenu(DONT_HAS_PVP.getItem());
+        setItemMenu(HAS_PVP);
+        setDontItemMenu(DONT_HAS_PVP);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Pvp extends KitAPI {
 
         p.getInventory().clear();
         putAbility(p, PVP);
-        p.getInventory().addItem(DIAMOND_SWORD.getItem());
+        p.getInventory().addItem(DIAMOND_SWORD);
         fillInventoryWithSoup(p);
         p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);
         p.sendMessage(Messages.CHOOSE_KIT + this.getLabel().toUpperCase());

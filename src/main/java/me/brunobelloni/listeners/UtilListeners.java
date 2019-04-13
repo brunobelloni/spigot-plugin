@@ -40,7 +40,7 @@ public class UtilListeners implements Listener {
         ItemStack item = p.getItemInHand();
 
         if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-            if (item.equals(KIT_ITEM.getItem())) {
+            if (item.equals(KIT_ITEM)) {
                 e.setCancelled(true);
                 openKitMenu(p);
                 p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 1.0F, 1.0F);
