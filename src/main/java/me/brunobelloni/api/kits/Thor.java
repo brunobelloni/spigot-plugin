@@ -46,14 +46,8 @@ public class Thor extends KitAPI {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(COMMAND_FROM_CONSOLE);
-        }
-
-        if (!sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(DONT_HAVE_PERMISSION);
-            return true;
-        }
+        if (!commandSenderIsPlayer(sender)) return false;
+        if (!playerHasPermission(sender)) return false;
 
         Player p = (Player) sender;
 

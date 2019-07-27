@@ -1,24 +1,6 @@
 package me.brunobelloni.api.kits;
 
-import static me.brunobelloni.controllers.AbilityController.getAbility;
-import static me.brunobelloni.controllers.AbilityController.putAbility;
-import static me.brunobelloni.controllers.CooldownController.getCooldown;
-import static me.brunobelloni.controllers.CooldownController.isOnCooldown;
-import static me.brunobelloni.controllers.CooldownController.putCooldown;
-import static me.brunobelloni.controllers.CooldownController.removeCooldown;
-import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup;
-import static me.brunobelloni.enums.Abilitys.SWITCHER;
-import static me.brunobelloni.enums.Cooldown.SWITCHER_COOLDOWN;
-import static me.brunobelloni.enums.Item.IRON_SWORD;
-import static me.brunobelloni.enums.Item.SWITCHER_CD;
-import static me.brunobelloni.enums.Item.SWITCHER_ITEM;
-import static me.brunobelloni.enums.MenuItem.DONT_HAS_SWITCHER;
-import static me.brunobelloni.enums.MenuItem.HAS_SWITCHER;
 import me.brunobelloni.enums.Messages;
-import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
-import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
-import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
-import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,6 +8,18 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import static me.brunobelloni.controllers.AbilityController.getAbility;
+import static me.brunobelloni.controllers.AbilityController.putAbility;
+import static me.brunobelloni.controllers.CooldownController.*;
+import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup;
+import static me.brunobelloni.enums.Abilitys.SWITCHER;
+import static me.brunobelloni.enums.Cooldown.SWITCHER_COOLDOWN;
+import static me.brunobelloni.enums.Item.*;
+import static me.brunobelloni.enums.MenuItem.DONT_HAS_SWITCHER;
+import static me.brunobelloni.enums.MenuItem.HAS_SWITCHER;
+import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_AFTER;
+import static me.brunobelloni.enums.Messages.COOLDOWN_WARNING_BEFORE;
 
 public class Switcher extends KitAPI {
 
@@ -38,14 +32,8 @@ public class Switcher extends KitAPI {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(COMMAND_FROM_CONSOLE);
-        }
-
-        if (!sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(DONT_HAVE_PERMISSION);
-            return true;
-        }
+        if (!commandSenderIsPlayer(sender)) return false;
+        if (!playerHasPermission(sender)) return false;
 
         Player p = (Player) sender;
 

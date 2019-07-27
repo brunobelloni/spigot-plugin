@@ -1,15 +1,20 @@
 package me.brunobelloni.api.kits;
 
-import java.text.MessageFormat;
 import me.brunobelloni.Plugin;
 import me.brunobelloni.api.chest.ChestAPI;
 import me.brunobelloni.api.chest.ChestAPI.onClick;
-import static me.brunobelloni.controllers.MenuController.addKit;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+
+import java.text.MessageFormat;
+
+import static me.brunobelloni.controllers.MenuController.addKit;
+import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
+import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 
 public abstract class KitAPI extends BukkitCommand implements Listener {
 
@@ -84,5 +89,21 @@ public abstract class KitAPI extends BukkitCommand implements Listener {
 
     public void setClick(onClick click) {
         this.click = click;
+    }
+
+    protected boolean commandSenderIsPlayer(CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(COMMAND_FROM_CONSOLE);
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean playerHasPermission(CommandSender sender) {
+        if (!sender.hasPermission(this.getPermission())) {
+            sender.sendMessage(DONT_HAVE_PERMISSION);
+            return false;
+        }
+        return true;
     }
 }

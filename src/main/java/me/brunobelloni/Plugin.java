@@ -42,6 +42,8 @@ public class Plugin extends JavaPlugin {
             database = new Database(this);
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage("[ERROR] " + e);
+            getServer().getConsoleSender().sendMessage("[ERROR] Configure o banco de dados");
+            this.getServer().shutdown();
         } finally {
             new CooldownController();
             new AbilityController();

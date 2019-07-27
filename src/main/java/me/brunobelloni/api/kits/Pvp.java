@@ -1,17 +1,16 @@
 package me.brunobelloni.api.kits;
 
+import me.brunobelloni.enums.Messages;
+import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import static me.brunobelloni.controllers.AbilityController.putAbility;
 import static me.brunobelloni.controllers.PlayerController.fillInventoryWithSoup;
 import static me.brunobelloni.enums.Abilitys.PVP;
 import static me.brunobelloni.enums.Item.DIAMOND_SWORD;
 import static me.brunobelloni.enums.MenuItem.DONT_HAS_PVP;
 import static me.brunobelloni.enums.MenuItem.HAS_PVP;
-import me.brunobelloni.enums.Messages;
-import static me.brunobelloni.enums.Messages.COMMAND_FROM_CONSOLE;
-import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
-import org.bukkit.Sound;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class Pvp extends KitAPI {
 
@@ -23,14 +22,8 @@ public class Pvp extends KitAPI {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(COMMAND_FROM_CONSOLE);
-        }
-
-        if (!sender.hasPermission(this.getPermission())) {
-            sender.sendMessage(DONT_HAVE_PERMISSION);
-            return true;
-        }
+        if (!commandSenderIsPlayer(sender)) return false;
+        if (!playerHasPermission(sender)) return false;
 
         Player p = (Player) sender;
 
@@ -43,4 +36,6 @@ public class Pvp extends KitAPI {
 
         return true;
     }
+
+
 }
