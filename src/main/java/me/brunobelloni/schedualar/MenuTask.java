@@ -1,14 +1,16 @@
 package me.brunobelloni.schedualar;
 
-import java.util.ArrayList;
 import me.brunobelloni.api.chest.ChestAPI;
 import me.brunobelloni.api.kits.KitAPI;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+
 import static me.brunobelloni.controllers.MenuController.addPlayerMenu;
 import static me.brunobelloni.controllers.MenuController.getKits;
 import static me.brunobelloni.enums.MenuItem.GLASS;
 import static me.brunobelloni.enums.Messages.KIT_CHEST_NAME;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class MenuTask extends BukkitRunnable {
 

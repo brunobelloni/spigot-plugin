@@ -3,7 +3,7 @@ package me.brunobelloni.enums;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class Item extends  AbstractItem{
+public class Item extends AbstractItem {
 
     public static final ItemStack KIT_ITEM = createItem(Material.CHEST, "&cKit Menu", new String[]{"", ""});
     public static final ItemStack SOUP = createItem(Material.MUSHROOM_SOUP, "&cSoup", new String[]{"", "&7Beba para curar 3.5 corações de vida"});

@@ -1,6 +1,5 @@
 package me.brunobelloni;
 
-import java.lang.reflect.Field;
 import me.brunobelloni.api.event.EventAPI;
 import me.brunobelloni.api.kits.Pvp;
 import me.brunobelloni.api.kits.Switcher;
@@ -12,17 +11,15 @@ import me.brunobelloni.listeners.ChatFormat;
 import me.brunobelloni.listeners.CmdPreprocess;
 import me.brunobelloni.listeners.ItemDrop;
 import me.brunobelloni.listeners.UtilListeners;
-import me.brunobelloni.listeners.player.AntiGriefing;
-import me.brunobelloni.listeners.player.DeathRespawn;
-import me.brunobelloni.listeners.player.JoinServer;
-import me.brunobelloni.listeners.player.PvpListeners;
-import me.brunobelloni.listeners.player.QuitServer;
+import me.brunobelloni.listeners.player.*;
 import me.brunobelloni.mysql.Database;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.lang.reflect.Field;
 
 public class Plugin extends JavaPlugin {
 

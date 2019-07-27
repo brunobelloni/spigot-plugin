@@ -1,11 +1,12 @@
 package me.brunobelloni.mysql;
 
 import com.zaxxer.hikari.HikariDataSource;
+import me.brunobelloni.Plugin;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import me.brunobelloni.Plugin;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class Database {
 

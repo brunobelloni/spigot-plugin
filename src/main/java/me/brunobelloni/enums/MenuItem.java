@@ -3,7 +3,7 @@ package me.brunobelloni.enums;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class MenuItem extends AbstractItem{
+public class MenuItem extends AbstractItem {
 
     public static final ItemStack GLASS = createItem(Material.STAINED_GLASS_PANE, (short) 15, " ", new String[]{""});
 

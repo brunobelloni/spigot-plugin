@@ -1,8 +1,9 @@
 package me.brunobelloni.schedualar;
 
-import static me.brunobelloni.controllers.CooldownController.removeCooldown;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import static me.brunobelloni.controllers.CooldownController.removeCooldown;
 
 public class CooldownAPI extends BukkitRunnable {
 

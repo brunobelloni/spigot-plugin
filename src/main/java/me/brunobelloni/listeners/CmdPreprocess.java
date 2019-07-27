@@ -1,9 +1,10 @@
 package me.brunobelloni.listeners;
 
-import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import static me.brunobelloni.enums.Messages.DONT_HAVE_PERMISSION;
 
 public class CmdPreprocess implements Listener {
 

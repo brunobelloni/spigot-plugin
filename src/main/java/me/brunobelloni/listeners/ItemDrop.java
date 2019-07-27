@@ -1,12 +1,7 @@
 package me.brunobelloni.listeners;
 
 import me.brunobelloni.Plugin;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -85,7 +80,7 @@ public class ItemDrop implements Listener {
     }
 
     @EventHandler
-    public void PegarItens(PlayerPickupItemEvent e) {
+    public void pegarItens(PlayerPickupItemEvent e) {
         Material itemPick = e.getItem().getItemStack().getType();
 
         if (!(itemPick.equals(Material.MUSHROOM_SOUP)

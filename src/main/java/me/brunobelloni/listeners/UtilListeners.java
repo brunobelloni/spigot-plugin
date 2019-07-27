@@ -1,7 +1,5 @@
 package me.brunobelloni.listeners;
 
-import static me.brunobelloni.controllers.MenuController.openKitMenu;
-import static me.brunobelloni.enums.Item.KIT_ITEM;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +10,9 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
+
+import static me.brunobelloni.controllers.MenuController.openKitMenu;
+import static me.brunobelloni.enums.Item.KIT_ITEM;
 
 public class UtilListeners implements Listener {
 
